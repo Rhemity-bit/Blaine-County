@@ -1,0 +1,1289 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blaine County Sheriff's Office</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #000000;
+            color: #e0e0e0;
+            line-height: 1.6;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://placehold.co/1920x1080/000000/111111?text=');
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #000000;
+            color: #d4af37;
+            padding: 1rem 0;
+            border-bottom: 4px solid #d4af37;
+            box-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            background-color: #000000;
+            overflow: hidden;
+        }
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-shadow: 2px 2px 8px rgba(212, 175, 55, 0.5);
+        }
+        .tagline {
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 5px;
+            color: #d4af37;
+            letter-spacing: 1px;
+        }
+        nav {
+            background-color: #0a0a0a;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid #d4af37;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            position: relative;
+        }
+        .nav-links li {
+            position: relative;
+        }
+        .nav-links a {
+            color: #d4af37;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            display: block;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #d4af37;
+            color: #000000;
+            border: 1px solid #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        /* Dropdown styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #0a0a0a;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
+            z-index: 1;
+            border: 1px solid #d4af37;
+            border-radius: 4px;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: #d4af37;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #333;
+            transition: all 0.3s;
+        }
+        .dropdown-content a:hover {
+            background-color: #d4af37;
+            color: #000000;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: 5px;
+            vertical-align: middle;
+            border-top: 5px solid #d4af37;
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+        }
+        main {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+        }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .page.active {
+            display: block;
+        }
+        .page-content {
+            background: linear-gradient(145deg, #0a0a0a, #111111);
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 
+                0 0 15px rgba(212, 175, 55, 0.2),
+                inset 0 0 10px rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .page-title {
+            color: #d4af37;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #d4af37;
+            font-size: 2rem;
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+        }
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background-color: rgba(30, 30, 30, 0.5);
+        }
+        .section-title {
+            color: #d4af37;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 0.5rem;
+        }
+        .sop-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #d4af37;
+        }
+        .sop-title {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .sop-subtitle {
+            color: #e0e0e0;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .sop-intro {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+        .sop-section {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 4px solid #d4af37;
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        .sop-number {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sop-title {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .sop-content {
+            margin-left: 1.8rem;
+            line-height: 1.7;
+        }
+        .sop-content p {
+            margin-bottom: 0.8rem;
+        }
+        .sop-list {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+        }
+        .sop-list li {
+            margin-bottom: 0.5rem;
+        }
+        .sop-sublist {
+            list-style-type: circle;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+        .sop-code {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+        .sop-emphasis {
+            color: #d4af37;
+            font-weight: bold;
+        }
+        .placeholder {
+            text-align: center;
+            color: #808080;
+            font-style: italic;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border: 1px dashed #555;
+            border-radius: 6px;
+        }
+        .placeholder h3 {
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+        .logo-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-top: 2px solid #d4af37;
+            border-bottom: 2px solid #d4af37;
+        }
+        .logo-bottom-img {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            background-color: #000000;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .logo-bottom-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+        .logo-bottom-text {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .logo-bottom-tagline {
+            color: #e0e0e0;
+            font-style: italic;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+        .announcement {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .announcement-title {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .announcement-date {
+            color: #808080;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .leader-card {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        .leader-img {
+            width: 100%;
+            height: 300px;
+            background-color: #222;
+            border-bottom: 2px solid #d4af37;
+            overflow: hidden;
+        }
+        .leader-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .leader-info {
+            padding: 1.5rem;
+        }
+        .leader-position {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .leader-name {
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .leader-bio {
+            color: #c0c0c0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .leader-contact {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        .vacant {
+            background-color: rgba(150, 0, 0, 0.3);
+            border: 2px dashed #d42f2f;
+            text-align: center;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .vacant h2 {
+            color: #d42f2f;
+            margin-bottom: 1rem;
+        }
+        .vacant p {
+            color: #f0a0a0;
+        }
+        footer {
+            background-color: #000000;
+            color: #d4af37;
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 2px solid #d4af37;
+            font-size: 0.9rem;
+            box-shadow: 0 -2px 10px rgba(212, 175, 55, 0.2);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            background-color: #000000;
+            overflow: hidden;
+            margin: 0 auto 10px;
+        }
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .emergency-banner {
+            background-color: #000000;
+            color: #d4af37;
+            text-align: center;
+            padding: 0.75rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #d4af37;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        .news-banner {
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .news-title {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
+        }
+        .news-item {
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed #555;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        .news-date {
+            color: #808080;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .news-content {
+            color: #e0e0e0;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        .news-tag {
+            display: inline-block;
+            background-color: #d4af37;
+            color: #000000;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-img">
+                        <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                    </div>
+                    <div>
+                        <div class="logo-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                </div>
+                <div class="emergency-contact">
+                    <div style="color: #d4af37; font-weight: bold;">EMERGENCY: 911</div>
+                    <div style="color: #d4af37;">NON-EMERGENCY: (555) 123-4567</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="nav-link">Resources <span class="dropdown-arrow"></span></a>
+                    <div class="dropdown-content">
+                        <a href="#" class="nav-link" data-page="sops">Standard Operating Procedures</a>
+                        <a href="#" class="nav-link" data-page="miranda">Miranda Rights</a>
+                        <a href="#" class="nav-link" data-page="firearms">Firearm Certification</a>
+                    </div>
+                </li>
+                <li><a href="#" class="nav-link" data-page="leadership">Leadership</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <!-- Home Page -->
+            <div id="home" class="page active">
+                <div class="page-content">
+                    <h1 class="page-title">Welcome to Blaine County Sheriff's Office</h1>
+                    <div class="emergency-banner">OFFICIAL LAW ENFORCEMENT PORTAL - AUTHORIZED ACCESS ONLY</div>
+                    <!-- News Banner -->
+                    <div class="news-banner">
+                        <div class="news-title">BLAINE COUNTY DAILY BRIEFING</div>
+                        <div class="news-item">
+                            <div class="news-header">
+                                <span class="news-tag">CAT ALERT</span>
+                                <div class="news-date">OCT 16, 2023</div>
+                            </div>
+                            <div class="news-content">
+                                "Sheriff Lei reports another mysterious disappearance of his prized 'cat meat special' from the evidence locker. This marks the 14th cat-based dish gone missing this month. 'Those LSPD officers have no respect for proper rural cuisine,' the Sheriff lamented while sharpening his cleaver. Surveillance footage shows only a blur of blue uniforms and the sound of someone saying 'Sorry, we just really like cats.'"
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-header">
+                                <span class="news-tag">LSPD SCANDAL</span>
+                                <div class="news-date">OCT 15, 2023</div>
+                            </div>
+                            <div class="news-content">
+                                "Multiple LSPD officers hospitalized after consuming 'performance enhancing supplements' confiscated from a downtown dealer. Sources confirm the supplements were actually expired Blaine County cat stew, which Sheriff Lei claims 'has natural energizing properties... when prepared correctly.' The affected officers are reportedly experiencing 'uncontrollable urges to climb trees and chase laser pointers.'"
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-header">
+                                <span class="news-tag">COUNTY PRIDE</span>
+                                <div class="news-date">OCT 14, 2023</div>
+                            </div>
+                            <div class="news-content">
+                                "Blaine County officially declares itself superior to all other counties after winning the annual 'Best Air Quality' award. 'Our air is pure because we don't have LSPD cruisers idling downtown all day burning taxpayer money,' stated Undersheriff Graves. The award comes with a $50 voucher to Sandy Shores Gas & Bait, which Sheriff Lei plans to spend on more cat traps."
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-header">
+                                <span class="news-tag">MISSING PERSONS</span>
+                                <div class="news-date">OCT 13, 2023</div>
+                            </div>
+                            <div class="news-content">
+                                "Local man missing for 3 days found napping in a barn outside Paleto. 'I wasn't lost, I was just avoiding that new LSPD community outreach program,' the man explained. Sheriff Lei praised the discovery: 'This proves Blaine County residents have superior survival instincts. In Los Santos, they'd have been 'community engaged' to death by now.'"
+                            </div>
+                        </div>
+                        <div class="news-item">
+                            <div class="news-header">
+                                <span class="news-tag">PUBLIC SERVICE</span>
+                                <div class="news-date">OCT 12, 2023</div>
+                            </div>
+                            <div class="news-content">
+                                "Blaine County announces new initiative: 'Adopt a Highway, Get a Free Cat.' Residents who volunteer for highway cleanup will receive one free cat (while supplies last). 'It's a win-win,' said Sheriff Lei. 'Cleaner roads and better ingredients for my stew.' LSPD has issued a formal protest, calling it 'cruelty to officers.'"
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Original Announcements -->
+                    <div class="announcement">
+                        <div class="announcement-title">EMERGENCY ALERT: HIGH PRIORITY WARRANTS</div>
+                        <div class="announcement-date">October 15, 2023</div>
+                        <p>Multiple high-risk warrants have been issued for individuals involved in recent armed robberies across Blaine County. All deputies should exercise extreme caution when encountering these subjects. Full suspect descriptions and vehicle information available in the Warrants section.</p>
+                    </div>
+                    <div class="announcement">
+                        <div class="announcement-title">ANNUAL FIREARMS QUALIFICATION SCHEDULE RELEASED</div>
+                        <div class="announcement-date">October 10, 2023</div>
+                        <p>The annual firearms qualification schedule has been released. All deputies must complete qualification by November 30th. Schedule your session through the Firearms Certification portal. Failure to qualify will result in temporary suspension of firearm privileges.</p>
+                    </div>
+                    <div class="announcement">
+                        <div class="announcement-title">NEW SOP ADDITIONS - OCTOBER 2023</div>
+                        <div class="announcement-date">October 5, 2023</div>
+                        <p>Several updates have been made to our Standard Operating Procedures. Key changes include updated pursuit policies, new de-escalation techniques, and revised protocols for handling mental health crises. All personnel are required to review the updated SOP manual.</p>
+                    </div>
+                    <div class="logo-bottom">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                </div>
+            </div>
+            <!-- SOPs Page -->
+            <div id="sops" class="page">
+                <div class="page-content">
+                    <div class="logo-bottom" style="margin-top: 0;">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                    <div class="sop-header">
+                        <h1 class="sop-title">Blaine County Sheriff's Office | Standard Operating Procedures</h1>
+                        <div class="sop-subtitle">Standard Operating Procedures (SOP)</div>
+                    </div>
+                    <div class="sop-intro">
+                        <p>This Standard Operating Procedures manual outlines the policies, responsibilities, and conduct expected of all personnel within the Blaine County Sheriff's Office (BCSO). These procedures are based on federal and state law, constitutional standards, and time-tested rural law enforcement values. All deputies, cadets, and support staff are required to uphold these standards with integrity, accountability, and pride.</p>
+                        <p>The BCSO exists to protect life and property, enforce the law fairly, and preserve the peace in Blaine County. We serve a hardworking, law-abiding community, and we expect our deputies to reflect the same grit, honesty, and independence that built this county.</p>
+                    </div>
+                    <!-- Code of Conduct -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 1.0 | Code of Conduct</div>
+                        <div class="sop-title">CODE OF CONDUCT</div>
+                        <div class="sop-content">
+                            <p>All members of the BCSO are held to the highest standard of personal and professional conduct. Your badge is a symbol of trust—don't tarnish it.</p>
+                            <ul class="sop-list">
+                                <li>Act with honesty, courage, and integrity at all times.</li>
+                                <li>Treat all individuals with fairness and respect—no exceptions.</li>
+                                <li>Enforce the law without fear, favor, or prejudice.</li>
+                                <li>Follow department policy, state law, and the U.S. Constitution.</li>
+                                <li>Report misconduct by any officer—silence is not loyalty.</li>
+                                <li>Never misuse your authority, patrol vehicle, or radio.</li>
+                                <li>Exercise sound judgment—especially when no one's watching.</li>
+                                <li>Represent Blaine County with pride, both on and off duty.</li>
+                            </ul>
+                            <p>Violation of this code may result in disciplinary action, demotion, or termination.</p>
+                        </div>
+                    </div>
+                    <!-- Ranks & Callsigns -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 2.0 | Ranks & Callsigns</div>
+                        <div class="sop-title">RANKS & CALLSIGNS</div>
+                        <div class="sop-content">
+                            <p>Clear leadership saves lives. The BCSO operates under a strict chain of command:</p>
+                            <ul class="sop-list">
+                                <li>Sheriff</li>
+                                <li>Undersheriff</li>
+                                <li>Captain</li>
+                                <li>Lieutenant</li>
+                                <li>Sergeant</li>
+                                <li>Deputy Sheriff (Senior)</li>
+                                <li>Deputy Sheriff</li>
+                                <li>Cadet (Probationary)</li>
+                            </ul>
+                            <p>Every deputy answers to a supervisor. Disobeying a lawful order is grounds for dismissal.</p>
+                        </div>
+                    </div>
+                    <!-- Radio Etiquette -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 3.0 | Radio Etiquette</div>
+                        <div class="sop-title">RADIO ETIQUETTE</div>
+                        <div class="sop-content">
+                            <p>Effective communication is critical to officer safety and coordination. The BCSO uses standard U.S. 10-codes and clear, concise language on all radio channels. Officers must:</p>
+                            <ol class="sop-list">
+                                <li>Use designated radio channels for patrol or tactical operations. (Channel 1)</li>
+                                <li>Keep transmissions brief and to the point.</li>
+                                <li>Identify themselves by callsign at the beginning of each transmission.</li>
+                                <li>Avoid unnecessary chatter or jokes.</li>
+                                <li>Follow dispatch protocols and acknowledge all calls for service promptly.</li>
+                            </ol>
+                            <p><span class="sop-emphasis">Common 10-codes include:</span></p>
+                            <div class="sop-code">
+                                10-4 – Acknowledged<br>
+                                10-7 – Out of service<br>
+                                10-8 – In service<br>
+                                10-20 – Location<br>
+                                10-33 – Emergency traffic only<br>
+                                10-50 – Vehicle accident<br>
+                                10-99 – Officer in danger
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Probationary Officers -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 4.0 | Probationary Officers</div>
+                        <div class="sop-title">PROBATIONARY OFFICERS</div>
+                        <div class="sop-content">
+                            <p>New hires start as Cadets. You'll ride with a certified Field Training Officer (FTO) for 12 weeks minimum.</p>
+                            <p>You will learn:</p>
+                            <ul class="sop-list">
+                                <li>State Law & U.S. Constitution</li>
+                                <li>Traffic stops and DUI enforcement</li>
+                                <li>Arrest procedures and Miranda rights</li>
+                                <li>Use of force policy</li>
+                                <li>Report writing</li>
+                                <li>Radio and patrol procedures</li>
+                                <li>Community interaction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Law & Legal Powers -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 5.0 | Law & Legal Powers</div>
+                        <div class="sop-title">LAW & LEGAL POWERS</div>
+                        <div class="sop-content">
+                            <p>BCSO deputies are peace officers with full arrest powers in Blaine County.</p>
+                            <p><span class="sop-emphasis">Key Principles:</span></p>
+                            <ul class="sop-list">
+                                <li>Probable Cause required for arrests and searches.</li>
+                                <li>Reasonable Suspicion allows brief stops (Terry frisk if weapon suspected).</li>
+                                <li>4th Amendment protects against unlawful search and seizure—respect it.</li>
+                                <li>Miranda Rights must be read during custodial interrogation.</li>
+                                <li>Use of Force must be necessary, proportional, and documented.</li>
+                            </ul>
+                            <p><span class="sop-emphasis">Arrest Procedure:</span></p>
+                            <ol class="sop-list">
+                                <li>Identify yourself: "Blaine County Sheriff's Office. You're under arrest."</li>
+                                <li>State the charge.</li>
+                                <li>Apply handcuffs safely.</li>
+                                <li>Search for weapons.</li>
+                                <li>Read Miranda if questioning.</li>
+                                <li>Transport to county jail.</li>
+                                <li>File a complete report.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <!-- Use of Force -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 6.0 | Use of Force</div>
+                        <div class="sop-title">USE OF FORCE</div>
+                        <div class="sop-content">
+                            <p>We use only the force needed to control a situation. De-escalate when you can.</p>
+                            <p><span class="sop-emphasis">Use of Force Continuum:</span></p>
+                            <ul class="sop-list">
+                                <li><span class="sop-emphasis">Officer Presence</span> – Your uniform deters crime.</li>
+                                <li><span class="sop-emphasis">Verbal Commands</span> – "Stop. Show me your hands."</li>
+                                <li><span class="sop-emphasis">Empty-Hand Control</span> – Handcuffing, takedowns.</li>
+                                <li><span class="sop-emphasis">Less-Lethal Tools</span> – Baton, Taser.</li>
+                                <li><span class="sop-emphasis">Firearms</span> – Lethal force only when threat of death or serious injury.</li>
+                            </ul>
+                            <p><span class="sop-emphasis">Deadly force is justified only if:</span></p>
+                            <ul class="sop-list">
+                                <li>Suspect is armed and threatening.</li>
+                                <li>Suspect has committed a violent felony and is fleeing.</li>
+                                <li>Innocent lives are at immediate risk.</li>
+                            </ul>
+                            <p>All shootings reviewed by Sheriff and Internal Review.</p>
+                        </div>
+                    </div>
+                    <!-- Vehicles -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 7.0 | Vehicles</div>
+                        <div class="sop-title">VEHICLES</div>
+                        <div class="sop-content">
+                            <p>All vehicles are BCSO property. Treat them like your own—because they're paid for by taxpayers.</p>
+                            <p><span class="sop-emphasis">Requirements:</span></p>
+                            <ul class="sop-list">
+                                <li>Lights and siren must work.</li>
+                                <li>Dash cam on during all calls.</li>
+                                <li>Vehicle inspected at start and end of shift.</li>
+                                <li>No personal items visible.</li>
+                                <li>No unapproved passengers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Pursuits -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 8.0 | Pursuits</div>
+                        <div class="sop-title">PURSUITS</div>
+                        <div class="sop-content">
+                            <p>Chasing reckless drivers is dangerous. We don't race.</p>
+                            <p><span class="sop-emphasis">Rules:</span></p>
+                            <ul class="sop-list">
+                                <li>Pursuits only for violent crimes or DUI with injury risk.</li>
+                                <li>Supervisor must be notified within 1 minute.</li>
+                                <li>PIT maneuvers require Sergeant approval.</li>
+                                <li>Spike strips used only in open areas, no civilians nearby.</li>
+                                <li>Terminate if weather, traffic, or darkness makes it unsafe.</li>
+                            </ul>
+                            <p>Your life and the public's safety come before an arrest.</p>
+                        </div>
+                    </div>
+                    <!-- Impounds & License Suspensions -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 9.0 | Impounds & License Suspensions</div>
+                        <div class="sop-title">IMPOUNDS & LICENSE SUSPENSIONS</div>
+                        <div class="sop-content">
+                            <p>Vehicles may be impounded for:</p>
+                            <ul class="sop-list">
+                                <li>DUI arrest</li>
+                                <li>Reckless driving</li>
+                                <li>Unlicensed operation</li>
+                                <li>Evidence in a crime</li>
+                            </ul>
+                            <p>License suspensions follow state law. No personal favors.</p>
+                        </div>
+                    </div>
+                    <!-- Firearm Restrictions -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 10.0 | Firearm Restrictions</div>
+                        <div class="sop-title">FIREARM RESTRICTIONS</div>
+                        <div class="sop-content">
+                            <p>All sidearms are department-issued (38 revolver). No personal weapons on duty.</p>
+                            <ul class="sop-list">
+                                <li>Holsters must be worn at all times on patrol.</li>
+                                <li>Ammunition and weapons logs kept up to date.</li>
+                                <li>Annual qualification required.</li>
+                                <li>Unauthorized discharge = immediate suspension.</li>
+                                <li>Special weapons (rifles, shotguns) issued only to authorized units.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Reports & Warrants -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 11.0 | Reports & Warrants</div>
+                        <div class="sop-title">REPORTS & WARRANTS</div>
+                        <div class="sop-content">
+                            <p>If it didn't get written down, it didn't happen.</p>
+                            <p>All arrests, use of force, pursuits, and major incidents require a full report within 24 hours.</p>
+                            <p>Reports must be:</p>
+                            <ul class="sop-list">
+                                <li>Accurate</li>
+                                <li>Complete</li>
+                                <li>Free of opinion or exaggeration</li>
+                            </ul>
+                            <p>Falsifying a report = automatic termination.</p>
+                        </div>
+                    </div>
+                    <!-- Hostage Situations -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 12.0 | Hostage Situations</div>
+                        <div class="sop-title">HOSTAGE SITUATIONS</div>
+                        <div class="sop-content">
+                            <p>Standoff? Hostage? Armed barricade?</p>
+                            <ul class="sop-list">
+                                <li>Do not engage alone.</li>
+                                <li>Secure perimeter.</li>
+                                <li>Call for SWAT and negotiators.</li>
+                                <li>Establish command post.</li>
+                                <li>Keep civilians clear.</li>
+                                <li>Wait for tactical team.</li>
+                            </ul>
+                            <p>One hostage. One demand. One priority: survival.</p>
+                        </div>
+                    </div>
+                    <!-- Equipment & Firearms -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 13.0 | Equipment & Firearms</div>
+                        <div class="sop-title">EQUIPMENT & FIREARMS</div>
+                        <div class="sop-content">
+                            <p><span class="sop-emphasis">Standard Issue:</span></p>
+                            <ul class="sop-list">
+                                <li>38 revolver</li>
+                                <li>Duty holster and spare mags</li>
+                                <li>Taser X26</li>
+                                <li>Expandable baton</li>
+                                <li>Handcuffs (spare pair)</li>
+                                <li>Radio</li>
+                                <li>Fingerprint scanner</li>
+                                <li>Uniform and badge</li>
+                            </ul>
+                            <p>All gear must be worn and functional. Lost equipment = out of pocket.</p>
+                        </div>
+                    </div>
+                    <!-- Certifications -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 14.0 | Certifications</div>
+                        <div class="sop-title">CERTIFICATIONS</div>
+                        <div class="sop-content">
+                            <p>Advanced roles require certification:</p>
+                            <ul class="sop-list">
+                                <li><span class="sop-emphasis">SWAT</span> – Tactical training, marksmanship, breaching</li>
+                                <li><span class="sop-emphasis">K-9</span> – Handler course and ongoing drills</li>
+                                <li><span class="sop-emphasis">Motor Unit</span> – Rider certification</li>
+                                <li><span class="sop-emphasis">Search & Rescue</span> – Wilderness and tracking training</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Dress Code -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 15.0 | Dress Code</div>
+                        <div class="sop-title">DRESS CODE</div>
+                        <div class="sop-content">
+                            <p>You represent Blaine County. Look like it.</p>
+                            <p><span class="sop-emphasis">Uniform Requirements:</span></p>
+                            <ul class="sop-list">
+                                <li>Clean, pressed shirt and trousers</li>
+                                <li>Badge visible at all times</li>
+                                <li>Duty belt properly loaded</li>
+                                <li>Boots polished</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Transfers & Promotions -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 16.0 | Transfers & Promotions</div>
+                        <div class="sop-title">TRANSFERS & PROMOTIONS</div>
+                        <div class="sop-content">
+                            <p>Promotions based on:</p>
+                            <ul class="sop-list">
+                                <li>Performance</li>
+                                <li>Seniority</li>
+                                <li>Supervisor recommendation</li>
+                                <li>Written exam and oral board</li>
+                            </ul>
+                            <p>Transfers between units (K-9, Traffic, Patrol) require approval from your Sergeant and Division Captain.</p>
+                        </div>
+                    </div>
+                    <!-- Command Powers -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 17.0 | Command Powers</div>
+                        <div class="sop-title">COMMAND POWERS</div>
+                        <div class="sop-content">
+                            <ul class="sop-list">
+                                <li><span class="sop-emphasis">Sheriff</span> – Final authority. Elected by the people.</li>
+                                <li><span class="sop-emphasis">Undersheriff</span> – Oversees daily operations.</li>
+                                <li><span class="sop-emphasis">Captains</span> – Manage divisions (Patrol, Investigations, Admin).</li>
+                                <li><span class="sop-emphasis">Lieutenants</span> – Supervise shifts and major incidents.</li>
+                                <li><span class="sop-emphasis">Sergeants</span> – Field supervisors. Enforce discipline and policy.</li>
+                            </ul>
+                            <p>When a Sergeant speaks, you listen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Miranda Rights Page -->
+            <div id="miranda" class="page">
+                <div class="page-content">
+                    <div class="logo-bottom" style="margin-top: 0;">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                    <div class="sop-header">
+                        <h1 class="sop-title">Blaine County Sheriff's Office | Miranda Rights</h1>
+                        <div class="sop-subtitle">State of San Andreas - Blaine County</div>
+                    </div>
+                    <div class="sop-intro">
+                        <p>Miranda Rights are constitutional protections that must be read to individuals in police custody before interrogation. These rights, derived from the Fifth and Sixth Amendments to the U.S. Constitution, ensure that individuals are aware of their legal protections during custodial questioning.</p>
+                        <p>Failure to properly administer Miranda Rights can result in evidence being excluded from court proceedings. All Blaine County Sheriff's Office personnel must be thoroughly familiar with the proper administration of these rights.</p>
+                    </div>
+                    <!-- Full Version -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 Full Version</div>
+                        <div class="sop-title">FULL VERSION</div>
+                        <div class="sop-content">
+                            <p>"Alright, listen up. You have the right to remain silent — anything you say can and will be used against you in a court of law. You have the right to speak with an attorney and to have that attorney present during questioning. If you cannot afford an attorney, one will be provided for you by the state. Do you understand the rights I've just read to you? With these rights in mind, do you wish to speak to me now?"</p>
+                        </div>
+                    </div>
+                    <!-- Quick Version -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 Quick Version</div>
+                        <div class="sop-title">QUICK VERSION</div>
+                        <div class="sop-content">
+                            <p>"You have the right to remain silent. Anything you say can be used against you in court. You have the right to an attorney. If you cannot afford one, one will be provided. Do you understand these rights?"</p>
+                        </div>
+                    </div>
+                    <!-- When to Administer -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 When to Administer</div>
+                        <div class="sop-title">WHEN TO ADMINISTER</div>
+                        <div class="sop-content">
+                            <p>Miranda Rights must be administered when:</p>
+                            <ul class="sop-list">
+                                <li>The individual is in custody (not free to leave)</li>
+                                <li>The individual is being interrogated or questioned</li>
+                                <li>The questioning is likely to elicit an incriminating response</li>
+                            </ul>
+                            <p>Failure to provide Miranda warnings when required may result in statements being inadmissible in court.</p>
+                        </div>
+                    </div>
+                    <!-- Proper Administration -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 Proper Administration</div>
+                        <div class="sop-title">PROPER ADMINISTRATION</div>
+                        <div class="sop-content">
+                            <p>To properly administer Miranda Rights:</p>
+                            <ol class="sop-list">
+                                <li>Ensure the individual is in custody</li>
+                                <li>Clearly state each right using the approved wording</li>
+                                <li>Confirm understanding by asking "Do you understand these rights?"</li>
+                                <li>Obtain voluntary waiver before proceeding with questioning</li>
+                                <li>Document the administration in your report</li>
+                            </ol>
+                            <p>If the individual invokes their right to remain silent or requests an attorney, questioning must cease immediately.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Firearm Certification Page -->
+            <div id="firearms" class="page">
+                <div class="page-content">
+                    <div class="logo-bottom" style="margin-top: 0;">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                    <div class="sop-header">
+                        <h1 class="sop-title">Blaine County Sheriff's Office | Firearms License Code of Conduct</h1>
+                        <div class="sop-subtitle">State of San Andreas – Blaine County</div>
+                        <div class="sop-subtitle">License Fee: $50,000</div>
+                    </div>
+                    <div class="sop-intro">
+                        <p>Before we proceed, you are required to review and acknowledge the following Firearms License Code of Conduct for legal firearm ownership in the State of San Andreas, as administered and enforced by the Blaine County Sheriff's Office (BCSO).</p>
+                        <p>By accepting this license, you voluntarily agree to the following terms and conditions:</p>
+                    </div>
+                    <!-- Legal Use Only -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 1. Legal Use Only</div>
+                        <div class="sop-title">LEGAL USE ONLY</div>
+                        <div class="sop-content">
+                            <p>You agree to use any licensed firearm solely for lawful purposes, including self-defense, recreational shooting, or lawful hunting activities within designated areas.</p>
+                            <p>Any use of a firearm in connection with criminal activity will result in immediate revocation of this license, confiscation of all firearms, and criminal prosecution under State and County law.</p>
+                        </div>
+                    </div>
+                    <!-- Concealed Carry Regulations -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 2. Concealed Carry Regulations</div>
+                        <div class="sop-title">CONCEALED CARRY REGULATIONS</div>
+                        <div class="sop-content">
+                            <p>You are authorized to carry a concealed firearm on your person within Blaine County and other jurisdictions where permitted by law.</p>
+                            <p>The firearm must remain holstered and concealed at all times.</p>
+                            <p>It may only be drawn in cases of imminent self-defense, defense of others, or while participating in authorized shooting activities at approved ranges.</p>
+                        </div>
+                    </div>
+                    <!-- Prohibition on Brandishing or Threatening -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 3. Prohibition on Brandishing or Threatening</div>
+                        <div class="sop-title">PROHIBITION ON BRANDING OR THREATENING</div>
+                        <div class="sop-content">
+                            <p>Brandishing, displaying, or threatening others with a firearm in public without justifiable cause is strictly prohibited.</p>
+                            <p>This includes aggressive gestures, pointing a weapon at individuals during disputes, or any action that reasonably causes fear.</p>
+                            <p>Violation constitutes a misdemeanor or felony offense, immediate license revocation, and potential arrest.</p>
+                        </div>
+                    </div>
+                    <!-- Duty to Disclose to Law Enforcement -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 4. Duty to Disclose to Law Enforcement</div>
+                        <div class="sop-title">DUTY TO DISCLOSE TO LAW ENFORCEMENT</div>
+                        <div class="sop-content">
+                            <p>If you are stopped, questioned, or detained by any law enforcement officer within Blaine County or elsewhere in San Andreas:</p>
+                            <p>You must immediately inform the officer that you are legally carrying a firearm.</p>
+                            <p>You must keep your hands visible and follow all lawful commands.</p>
+                            <p>Failure to disclose your firearm may result in criminal charges, including obstruction and unlawful carry.</p>
+                        </div>
+                    </div>
+                    <!-- Safe Storage & Accountability -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 5. Safe Storage & Accountability</div>
+                        <div class="sop-title">SAFE STORAGE & ACCOUNTABILITY</div>
+                        <div class="sop-content">
+                            <p>You are personally responsible for the secure storage of all licensed firearms when not in your possession.</p>
+                            <p>Firearms must be stored in a locked container or with a trigger lock when not in use.</p>
+                            <p>If a licensed firearm is lost, stolen, or compromised, you must report it to the BCSO within 24 hours.</p>
+                            <p>Failure to report may result in fines, suspension, or revocation of your license.</p>
+                        </div>
+                    </div>
+                    <!-- Mental & Physical Fitness to Carry -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 6. Mental & Physical Fitness to Carry</div>
+                        <div class="sop-title">MENTAL & PHYSICAL FITNESS TO CARRY</div>
+                        <div class="sop-content">
+                            <p>You shall not possess or carry a firearm while:</p>
+                            <p>Under the influence of alcohol, illegal drugs, or prescription medication that impairs judgment, motor skills, or awareness.</p>
+                            <p>Suffering from a mental health crisis or condition that renders you a danger to yourself or others.</p>
+                            <p>The BCSO reserves the right to suspend your license pending a fitness evaluation.</p>
+                        </div>
+                    </div>
+                    <!-- No Unauthorized Transfer -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 7. No Unauthorized Transfer</div>
+                        <div class="sop-title">NO UNAUTHORIZED TRANSFER</div>
+                        <div class="sop-content">
+                            <p>You may not sell, gift, loan, or otherwise transfer your licensed firearm to any individual who does not hold a valid firearms license issued by the State of San Andreas.</p>
+                            <p>Unauthorized transfer is a Class C Felony and will result in prosecution, license revocation, and permanent disqualification from future licensing.</p>
+                        </div>
+                    </div>
+                    <!-- Subject to Review & Revocation -->
+                    <div class="sop-section">
+                        <div class="sop-number">🔹 8. Subject to Review & Revocation</div>
+                        <div class="sop-title">SUBJECT TO REVIEW & REVOCATION</div>
+                        <div class="sop-content">
+                            <p>Your firearms license is not permanent and remains subject to periodic review by the Blaine County Sheriff's Office.</p>
+                            <p>The BCSO may suspend or revoke your license at any time if:</p>
+                            <p>You violate any state or county law.</p>
+                            <p>You engage in behavior deemed dangerous or reckless.</p>
+                            <p>You become ineligible due to criminal, medical, or psychological factors.</p>
+                        </div>
+                    </div>
+                    <!-- Final Acknowledgment -->
+                    <div class="sop-section">
+                        <div class="sop-number">✅ Final Acknowledgment</div>
+                        <div class="sop-title">FINAL ACKNOWLEDGMENT</div>
+                        <div class="sop-content">
+                            <p>Do you fully understand and agree to comply with the Firearms License Code of Conduct as issued by the State of San Andreas and enforced by the Blaine County Sheriff's Office?</p>
+                            <p>By providing your verbal agreement and submitting the non-refundable licensing fee of $50,000, you acknowledge that:</p>
+                            <p>This license is a privilege, not a right.</p>
+                            <p>Misuse, violation of terms, or unlawful conduct involving firearms may result in:</p>
+                            <div style="margin-left: 1.8rem; margin-top: 0.5rem; line-height: 1.8; color: #d4af37; font-weight: bold;">
+                                Fines<br>
+                                Arrest<br>
+                                Confiscation of weapons<br>
+                                Permanent revocation of license<br>
+                                Criminal prosecution
+                            </div>
+                            <p>Your compliance ensures the safety of our communities and upholds the integrity of lawful gun ownership in Blaine County.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Leadership Page -->
+            <div id="leadership" class="page">
+                <div class="page-content">
+                    <div class="logo-bottom" style="margin-top: 0;">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                    <div class="sop-header">
+                        <h1 class="sop-title">Blaine County Sheriff's Office | Department Leadership</h1>
+                        <div class="sop-subtitle">Command Structure</div>
+                    </div>
+                    <div class="sop-intro">
+                        <p>The Blaine County Sheriff's Office is led by a dedicated team of experienced law enforcement professionals committed to maintaining the highest standards of integrity, professionalism, and community service. This leadership team oversees all operations, strategic planning, and policy implementation throughout Blaine County.</p>
+                        <p>Our command structure ensures clear lines of authority, effective communication, and accountability at all levels of the organization. Each leader brings years of experience and specialized expertise to their role, working together to serve and protect the citizens of Blaine County.</p>
+                    </div>
+                    <div class="leadership-grid">
+                        <!-- Sheriff -->
+                        <div class="leader-card">
+                            <div class="leader-img">
+                                <img src="https://i.postimg.cc/W3HB2Kg6/bing.png" alt="Sheriff Bing Lei">
+                            </div>
+                            <div class="leader-info">
+                                <div class="leader-position">SHERIFF</div>
+                                <div class="leader-name">Bing Lei</div>
+                                <div class="leader-bio">
+                                    Elected Sheriff of Blaine County, Sheriff Lei is a third-generation Chinese American with deep roots in the rural communities of San Andreas. Known for his unique blend of traditional Chinese values and Southern hospitality, he brings an unconventional perspective to law enforcement. A skilled hunter and outdoorsman, Sheriff Lei is famous for his expertise in preparing cat-based dishes, which he often serves at department potlucks. His leadership philosophy emphasizes community connection, cultural understanding, and the importance of knowing your local terrain.
+                                </div>
+                                <div class="leader-contact">
+                                    <strong>Badge #:</strong> 1<br>
+                                    <strong>Term:</strong> Current<br>
+                                    <strong>Contact:</strong> sheriff.lei@blainecountyso.gov
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Undersheriff 1 -->
+                        <div class="leader-card">
+                            <div class="leader-img">
+                                <img src="https://i.postimg.cc/JzpPVXbj/phil.png" alt="Undersheriff Phil Graves">
+                            </div>
+                            <div class="leader-info">
+                                <div class="leader-position">UNDERSHERIFF</div>
+                                <div class="leader-name">Phil Graves</div>
+                                <div class="leader-bio">
+                                    Undersheriff Graves oversees the Traffic Division and Special Operations. A car enthusiast since childhood, he's known throughout the department for his impressive collection of classic muscle cars and his exceptional driving skills. Before joining law enforcement, he worked as a professional stunt driver. Undersheriff Graves developed the department's high-speed pursuit training program and personally instructs all officers on defensive driving techniques. His motto: "If you're going to chase 'em, you better know how to drive."
+                                </div>
+                                <div class="leader-contact">
+                                    <strong>Badge #:</strong> 2<br>
+                                    <strong>Service:</strong> 19 Years<br>
+                                    <strong>Contact:</strong> undersheriff.graves@blainecountyso.gov
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Undersheriff 2 -->
+                        <div class="leader-card">
+                            <div class="leader-img">
+                                <img src="https://i.postimg.cc/598g9TB4/kayce.png" alt="Undersheriff Kayce McIntosh">
+                            </div>
+                            <div class="leader-info">
+                                <div class="leader-position">UNDERSHERIFF</div>
+                                <div class="leader-name">Kayce McIntosh</div>
+                                <div class="leader-bio">
+                                    Undersheriff McIntosh co-leads the Criminal Investigation Division (CID) alongside Undersheriff Dan Murphy. A methodical and detail-oriented investigator, Kayce is known for his relentless pursuit of justice and his ability to piece together complex cases from the smallest evidence. He has a photographic memory for case details and is considered one of the most thorough crime scene analysts in San Andreas. Together with Murphy, they form the backbone of the department's investigative unit, solving some of Blaine County's most challenging cases.
+                                </div>
+                                <div class="leader-contact">
+                                    <strong>Badge #:</strong> 3<br>
+                                    <strong>Service:</strong> 21 Years<br>
+                                    <strong>Contact:</strong> undersheriff.mcintosh@blainecountyso.gov
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Undersheriff 3 -->
+                        <div class="leader-card">
+                            <div class="leader-img">
+                                <img src="https://i.postimg.cc/zGQKFFC2/dan-murphy.png" alt="Undersheriff Dan Murphy">
+                            </div>
+                            <div class="leader-info">
+                                <div class="leader-position">UNDERSHERIFF</div>
+                                <div class="leader-name">Dan Murphy</div>
+                                <div class="leader-bio">
+                                    Undersheriff Murphy co-leads the Criminal Investigation Division (CID) alongside Undersheriff Kayce McIntosh. Specializing in witness interviews and interrogation techniques, Murphy is known for his calm demeanor and ability to extract information without raising his voice. His investigative approach perfectly complements McIntosh's analytical style, creating one of the most effective detective partnerships in San Andreas history. Murphy believes "every suspect has a story to tell; it's our job to figure out which parts are true," and his intuition has cracked numerous cold cases that others deemed unsolvable.
+                                </div>
+                                <div class="leader-contact">
+                                    <strong>Badge #:</strong> 4<br>
+                                    <strong>Service:</strong> 20 Years<br>
+                                    <strong>Contact:</strong> undersheriff.murphy@blainecountyso.gov
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vacant">
+                        <h2>CAPTAIN POSITION VACANT</h2>
+                        <p>The Captain position is currently vacant as the department conducts a thorough search for the right candidate to lead our Patrol Division.</p>
+                        <p>Qualified internal candidates are encouraged to apply through the Personnel Division.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                </div>
+                <div>Blaine County Sheriff's Office</div>
+                <div>555 Enforcement Way, Sandy Shores, San Andreas 90210</div>
+                <div>© 2023 Blaine County Sheriff's Office. All Rights Reserved.</div>
+                <div>For Internal Use Only - Unauthorized Access Prohibited</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Get all navigation links and pages
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+        // Function to change page
+        function showPage(pageId) {
+            // Hide all pages
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            // Update active nav link
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            // Find and activate the corresponding nav link
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+        }
+        // Add click event listeners to nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                if (pageId) {
+                    showPage(pageId);
+                }
+            });
+        });
+        // Initialize with home page
+        showPage('home');
+    </script>
+</body>
+</html>
+```

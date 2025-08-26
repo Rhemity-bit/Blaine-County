@@ -51,6 +51,33 @@
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
             background-color: #000000;
             overflow: hidden;
+            position: relative;
+        }
+        .logo-img::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            animation: pulse 3s infinite ease-in-out;
+            opacity: 0;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(0.9);
+                opacity: 0.3;
+            }
         }
         .logo-img img {
             width: 100%;
@@ -289,8 +316,8 @@
             border-bottom: 2px solid #d4af37;
         }
         .logo-bottom-img {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border: 3px solid #d4af37;
             border-radius: 50%;
             display: flex;
@@ -299,7 +326,20 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
             background-color: #000000;
             overflow: hidden;
+            position: relative;
             margin-bottom: 1rem;
+        }
+        .logo-bottom-img::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            animation: pulse 3s infinite ease-in-out;
+            opacity: 0;
         }
         .logo-bottom-img img {
             width: 100%;
@@ -506,6 +546,74 @@
             font-weight: bold;
             margin-right: 0.5rem;
         }
+        .pit-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .pit-step {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pit-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        .pit-step-img {
+            width: 100%;
+            height: 200px;
+            background-color: #222;
+            overflow: hidden;
+        }
+        .pit-step-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .pit-step-info {
+            padding: 1.5rem;
+        }
+        .pit-step-number {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .pit-step-title {
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .pit-step-description {
+            color: #c0c0c0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .pit-animation {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        .pit-animation-title {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .pit-animation-img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -538,6 +646,7 @@
                         <a href="#" class="nav-link" data-page="sops">Standard Operating Procedures</a>
                         <a href="#" class="nav-link" data-page="miranda">Miranda Rights</a>
                         <a href="#" class="nav-link" data-page="firearms">Firearm Certification</a>
+                        <a href="#" class="nav-link" data-page="pit">PIT Maneuver Training</a>
                     </div>
                 </li>
                 <li><a href="#" class="nav-link" data-page="leadership">Leadership</a></li>
@@ -549,6 +658,13 @@
             <!-- Home Page -->
             <div id="home" class="page active">
                 <div class="page-content">
+                    <div class="logo-bottom">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
                     <h1 class="page-title">Welcome to Blaine County Sheriff's Office</h1>
                     <div class="emergency-banner">OFFICIAL LAW ENFORCEMENT PORTAL - AUTHORIZED ACCESS ONLY</div>
                     <!-- News Banner -->
@@ -616,19 +732,12 @@
                         <div class="announcement-date">October 5, 2023</div>
                         <p>Several updates have been made to our Standard Operating Procedures. Key changes include updated pursuit policies, new de-escalation techniques, and revised protocols for handling mental health crises. All personnel are required to review the updated SOP manual.</p>
                     </div>
-                    <div class="logo-bottom">
-                        <div class="logo-bottom-img">
-                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
-                        </div>
-                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
-                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
-                    </div>
                 </div>
             </div>
             <!-- SOPs Page -->
             <div id="sops" class="page">
                 <div class="page-content">
-                    <div class="logo-bottom" style="margin-top: 0;">
+                    <div class="logo-bottom">
                         <div class="logo-bottom-img">
                             <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
                         </div>
@@ -952,7 +1061,7 @@
             <!-- Miranda Rights Page -->
             <div id="miranda" class="page">
                 <div class="page-content">
-                    <div class="logo-bottom" style="margin-top: 0;">
+                    <div class="logo-bottom">
                         <div class="logo-bottom-img">
                             <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
                         </div>
@@ -1018,7 +1127,7 @@
             <!-- Firearm Certification Page -->
             <div id="firearms" class="page">
                 <div class="page-content">
-                    <div class="logo-bottom" style="margin-top: 0;">
+                    <div class="logo-bottom">
                         <div class="logo-bottom-img">
                             <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
                         </div>
@@ -1138,10 +1247,101 @@
                     </div>
                 </div>
             </div>
+            <!-- PIT Maneuver Training Page -->
+            <div id="pit" class="page">
+                <div class="page-content">
+                    <div class="logo-bottom">
+                        <div class="logo-bottom-img">
+                            <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
+                        </div>
+                        <div class="logo-bottom-text">BLAINE COUNTY SHERIFF'S OFFICE</div>
+                        <div class="logo-bottom-tagline">SAN ANDREAS - LOS SANTOS</div>
+                    </div>
+                    <div class="sop-header">
+                        <h1 class="sop-title">Blaine County Sheriff's Office | PIT Maneuver Training</h1>
+                        <div class="sop-subtitle">Precision Immobilization Technique</div>
+                    </div>
+                    <div class="sop-intro">
+                        <p>The Precision Immobilization Technique (PIT) is a high-risk vehicle intervention tactic used to safely terminate high-speed pursuits by forcing a fleeing vehicle to lose control and come to a stop. This maneuver requires extensive training, proper judgment, and strict adherence to department policy.</p>
+                        <p>Only officers who have completed the Advanced Pursuit Training course and received certification from a qualified instructor are authorized to perform PIT maneuvers. All PIT maneuvers require prior approval from a Sergeant or higher-ranking officer.</p>
+                    </div>
+                    <div class="pit-steps">
+                        <!-- Step 1 -->
+                        <div class="pit-step">
+                            <div class="pit-step-img">
+                                <img src="https://i.postimg.cc/DzV9yDNF/pit-maneuvers-1.png" alt="PIT Maneuver Step 1">
+                            </div>
+                            <div class="pit-step-info">
+                                <div class="pit-step-number">STEP 1: POSITIONING</div>
+                                <div class="pit-step-title">Align Your Vehicle</div>
+                                <div class="pit-step-description">
+                                    <p>Position your patrol vehicle parallel to the rear quarter of the fleeing vehicle, maintaining a distance of 2-3 feet. Your front bumper should be aligned with the suspect vehicle's rear door. Maintain a speed at least equal to the fleeing vehicle and ensure you have a clear escape route if the maneuver fails.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="pit-step">
+                            <div class="pit-step-img">
+                                <img src="https://i.postimg.cc/rspbPLDG/pit-maneuvers-2.png" alt="PIT Maneuver Step 2">
+                            </div>
+                            <div class="pit-step-info">
+                                <div class="pit-step-number">STEP 2: CONTACT</div>
+                                <div class="pit-step-title">Make Contact</div>
+                                <div class="pit-step-description">
+                                    <p>Once properly positioned, gently turn your steering wheel toward the fleeing vehicle to make contact with its rear quarter panel. The point of contact should be your front bumper to their rear quarter panel. Apply steady pressure while maintaining your lane position. Do not jerk the wheel or oversteer.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="pit-step">
+                            <div class="pit-step-img">
+                                <img src="https://i.postimg.cc/L507d0Pc/pit-maneuvers-3.png" alt="PIT Maneuver Step 3">
+                            </div>
+                            <div class="pit-step-info">
+                                <div class="pit-step-number">STEP 3: TURN</div>
+                                <div class="pit-step-title">Initiate the Turn</div>
+                                <div class="pit-step-description">
+                                    <p>As contact is maintained, smoothly turn your steering wheel in the direction of the fleeing vehicle. This transfers momentum and induces oversteer in the suspect vehicle. Apply gentle acceleration to maintain contact pressure. The goal is to cause the suspect vehicle's rear tires to lose traction, not to damage either vehicle.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="pit-step">
+                            <div class="pit-step-img">
+                                <img src="https://i.postimg.cc/wxWns3rw/pit-maneuvers-4.png" alt="PIT Maneuver Step 4">
+                            </div>
+                            <div class="pit-step-info">
+                                <div class="pit-step-number">STEP 4: RELEASE</div>
+                                <div class="pit-step-title">Disengage and Stop</div>
+                                <div class="pit-step-description">
+                                    <p>Once the suspect vehicle begins to turn, immediately release contact and counter-steer to maintain control of your patrol vehicle. Brake smoothly and come to a controlled stop. Do not continue to push the suspect vehicle once it has begun to spin. Position your vehicle to block the suspect's path if necessary.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pit-animation">
+                        <div class="pit-animation-title">PIT MANEUVER IN ACTION</div>
+                        <img src="https://i.postimg.cc/zGTdpfdZ/ezgif-com-animated-gif-maker.gif" alt="PIT Maneuver Animation" class="pit-animation-img">
+                    </div>
+                    <div class="announcement">
+                        <div class="announcement-title">PIT MANEUVER SAFETY PROTOCOLS</div>
+                        <div class="announcement-date">Effective Immediately</div>
+                        <p><strong>Conditions for PIT Maneuver Authorization:</strong></p>
+                        <ul class="sop-list">
+                            <li>Suspect is fleeing after committing a violent felony</li>
+                            <li>Weather and road conditions are favorable (dry pavement, good visibility)</li>
+                            <li>No pedestrians or civilian vehicles in the immediate vicinity</li>
+                            <li>Speed is below 35 mph (higher speeds significantly increase risk)</li>
+                            <li>Suspect vehicle is a standard passenger vehicle (not a motorcycle, large truck, or hazardous materials carrier)</li>
+                        </ul>
+                        <p><strong>Prohibited Situations:</strong> PIT maneuvers are strictly prohibited in residential areas, near schools, during inclement weather, or when children are visible in the suspect vehicle.</p>
+                    </div>
+                </div>
+            </div>
             <!-- Leadership Page -->
             <div id="leadership" class="page">
                 <div class="page-content">
-                    <div class="logo-bottom" style="margin-top: 0;">
+                    <div class="logo-bottom">
                         <div class="logo-bottom-img">
                             <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
                         </div>
@@ -1169,7 +1369,7 @@
                                     Elected Sheriff of Blaine County, Sheriff Lei is a third-generation Chinese American with deep roots in the rural communities of San Andreas. Known for his unique blend of traditional Chinese values and Southern hospitality, he brings an unconventional perspective to law enforcement. A skilled hunter and outdoorsman, Sheriff Lei is famous for his expertise in preparing cat-based dishes, which he often serves at department potlucks. His leadership philosophy emphasizes community connection, cultural understanding, and the importance of knowing your local terrain.
                                 </div>
                                 <div class="leader-contact">
-                                    <strong>Badge #:</strong> 1<br>
+                                    <strong>Badge #:</strong> 001<br>
                                     <strong>Term:</strong> Current<br>
                                     <strong>Contact:</strong> sheriff.lei@blainecountyso.gov
                                 </div>
@@ -1187,7 +1387,7 @@
                                     Undersheriff Graves oversees the Traffic Division and Special Operations. A car enthusiast since childhood, he's known throughout the department for his impressive collection of classic muscle cars and his exceptional driving skills. Before joining law enforcement, he worked as a professional stunt driver. Undersheriff Graves developed the department's high-speed pursuit training program and personally instructs all officers on defensive driving techniques. His motto: "If you're going to chase 'em, you better know how to drive."
                                 </div>
                                 <div class="leader-contact">
-                                    <strong>Badge #:</strong> 2<br>
+                                    <strong>Badge #:</strong> 002<br>
                                     <strong>Service:</strong> 19 Years<br>
                                     <strong>Contact:</strong> undersheriff.graves@blainecountyso.gov
                                 </div>
@@ -1202,10 +1402,10 @@
                                 <div class="leader-position">UNDERSHERIFF</div>
                                 <div class="leader-name">Kayce McIntosh</div>
                                 <div class="leader-bio">
-                                    Undersheriff McIntosh co-leads the Criminal Investigation Division (CID) alongside Undersheriff Dan Murphy. A methodical and detail-oriented investigator, Kayce is known for his relentless pursuit of justice and his ability to piece together complex cases from the smallest evidence. He has a photographic memory for case details and is considered one of the most thorough crime scene analysts in San Andreas. Together with Murphy, they form the backbone of the department's investigative unit, solving some of Blaine County's most challenging cases.
+                                    Undersheriff McIntosh co-leads the Criminal Investigation Division (CID) alongside Undersheriff Dan McIntosh. A methodical and detail-oriented investigator, Kayce is known for his relentless pursuit of justice and his ability to piece together complex cases from the smallest evidence. He has a photographic memory for case details and is considered one of the most thorough crime scene analysts in San Andreas. Together with McIntosh, they form the backbone of the department's investigative unit, solving some of Blaine County's most challenging cases.
                                 </div>
                                 <div class="leader-contact">
-                                    <strong>Badge #:</strong> 3<br>
+                                    <strong>Badge #:</strong> 004<br>
                                     <strong>Service:</strong> 21 Years<br>
                                     <strong>Contact:</strong> undersheriff.mcintosh@blainecountyso.gov
                                 </div>
@@ -1214,16 +1414,16 @@
                         <!-- Undersheriff 3 -->
                         <div class="leader-card">
                             <div class="leader-img">
-                                <img src="https://i.postimg.cc/zGQKFFC2/dan-murphy.png" alt="Undersheriff Dan Murphy">
+                                <img src="https://i.postimg.cc/zGQKFFC2/dan-murphy.png" alt="Undersheriff Dan McIntosh">
                             </div>
                             <div class="leader-info">
                                 <div class="leader-position">UNDERSHERIFF</div>
-                                <div class="leader-name">Dan Murphy</div>
+                                <div class="leader-name">Dan McIntosh</div>
                                 <div class="leader-bio">
-                                    Undersheriff Murphy co-leads the Criminal Investigation Division (CID) alongside Undersheriff Kayce McIntosh. Specializing in witness interviews and interrogation techniques, Murphy is known for his calm demeanor and ability to extract information without raising his voice. His investigative approach perfectly complements McIntosh's analytical style, creating one of the most effective detective partnerships in San Andreas history. Murphy believes "every suspect has a story to tell; it's our job to figure out which parts are true," and his intuition has cracked numerous cold cases that others deemed unsolvable.
+                                    Undersheriff McIntosh co-leads the Criminal Investigation Division (CID) alongside Undersheriff Kayce McIntosh. Specializing in witness interviews and interrogation techniques, McIntosh is known for his calm demeanor and ability to extract information without raising his voice. His investigative approach perfectly complements McIntosh's analytical style, creating one of the most effective detective partnerships in San Andreas history. McIntosh believes "every suspect has a story to tell; it's our job to figure out which parts are true," and his intuition has cracked numerous cold cases that others deemed unsolvable.
                                 </div>
                                 <div class="leader-contact">
-                                    <strong>Badge #:</strong> 4<br>
+                                    <strong>Badge #:</strong> 003<br>
                                     <strong>Service:</strong> 20 Years<br>
                                     <strong>Contact:</strong> undersheriff.murphy@blainecountyso.gov
                                 </div>

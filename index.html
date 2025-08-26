@@ -118,7 +118,7 @@
             background-color: #d4af37;
             transition: width 0.5s ease;
         }
-        .logo:hover .logo-text::after {
+        .logo-text:hover::after {
             width: 100%;
         }
         .tagline {
@@ -1690,37 +1690,44 @@
                 page.classList.remove('active');
             });
             // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
             // Update active nav link
             navLinks.forEach(link => {
                 link.classList.remove('active');
             });
             // Find and activate the corresponding nav link
-            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
-            
+            const activeLink = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
             // Reset animations for the new page
             setTimeout(() => {
                 const page = document.getElementById(pageId);
-                const animatedElements = page.querySelectorAll('.animated, .sop-section, .announcement, .leader-card, .news-item');
-                animatedElements.forEach(el => {
-                    if (el.style.animation) {
-                        el.style.animation = 'none';
-                        el.offsetHeight; // Trigger reflow
-                        el.style.animation = null;
-                    }
-                });
+                if (page) {
+                    const animatedElements = page.querySelectorAll('.animated, .sop-section, .announcement, .leader-card, .news-item');
+                    animatedElements.forEach(el => {
+                        if (el.style.animation) {
+                            el.style.animation = 'none';
+                            el.offsetHeight; // Trigger reflow
+                            el.style.animation = null;
+                        }
+                    });
+                }
             }, 50);
         }
         
         // Add click event listeners to nav links
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+        document.addEventListener('click', function(e) {
+            // Check if clicked element or its parent has data-page attribute
+            const target = e.target.closest('[data-page]');
+            if (target) {
                 e.preventDefault();
-                const pageId = link.getAttribute('data-page');
-                if (pageId) {
-                    showPage(pageId);
-                }
-            });
+                const pageId = target.getAttribute('data-page');
+                showPage(pageId);
+            }
         });
         
         // Initialize with home page
@@ -1728,34 +1735,30 @@
         
         // Add hover effect to logo
         const logo = document.querySelector('.logo');
-        const logoImg = document.querySelector('.logo-img');
-        const logoText = document.querySelector('.logo-text');
-        
-        logo.addEventListener('mouseenter', () => {
-            logo.style.transform = 'scale(1.05)';
-            logo.style.filter = 'brightness(1.2)';
-        });
-        
-        logo.addEventListener('mouseleave', () => {
-            logo.style.transform = 'scale(1)';
-            logo.style.filter = 'brightness(1)';
-        });
+        if (logo) {
+            logo.addEventListener('mouseenter', () => {
+                logo.style.transform = 'scale(1.05)';
+                logo.style.filter = 'brightness(1.2)';
+            });
+            logo.addEventListener('mouseleave', () => {
+                logo.style.transform = 'scale(1)';
+                logo.style.filter = 'brightness(1)';
+            });
+        }
         
         // Add subtle hover effect to footer logo
         const footerLogo = document.querySelector('.footer-logo');
-        
-        footerLogo.addEventListener('mouseenter', () => {
-            footerLogo.style.transform = 'scale(1.1)';
-            footerLogo.style.boxShadow = '0 0 20px rgba(212, 175, 55, 0.8)';
-        });
-        
-        footerLogo.addEventListener('mouseleave', () => {
-            footerLogo.style.transform = 'scale(1)';
-            footerLogo.style.boxShadow = '0 0 15px rgba(212, 175, 55, 0.5)';
-        });
+        if (footerLogo) {
+            footerLogo.addEventListener('mouseenter', () => {
+                footerLogo.style.transform = 'scale(1.1)';
+                footerLogo.style.boxShadow = '0 0 20px rgba(212, 175, 55, 0.8)';
+            });
+            footerLogo.addEventListener('mouseleave', () => {
+                footerLogo.style.transform = 'scale(1)';
+                footerLogo.style.boxShadow = '0 0 15px rgba(212, 175, 55, 0.5)';
+            });
+        }
     </script>
 </body>
 </html>
-```
-
-
+The navigation should now work reliably when clicking on any item in the Resources dropdown menu or any other navigation link.

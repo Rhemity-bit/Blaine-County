@@ -569,71 +569,19 @@
         .leader-card:hover .leader-contact {
             opacity: 1;
         }
-        .vacant {
-            background-color: rgba(30, 30, 30, 0.7);
-            border: 1px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        .vacant .leader-img {
-            background-color: #222;
-            border-bottom: 2px solid #d4af37;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            height: 300px;
-        }
-        .vacant .leader-img::before {
+        .vacant .leader-img::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: repeating-linear-gradient(45deg, #333 0px, #333 10px, #222 10px, #222 20px);
-            opacity: 0.3;
-        }
-        .vacant .leader-img::after {
-            content: 'VACANT';
-            font-size: 2rem;
-            font-weight: bold;
-            color: #d4af37;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            background-image: url('https://i.postimg.cc/htQLVt2V/pngtree-vacant-grunge-unoccupied-ink-vector-png-image-13965188.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.5;
             z-index: 1;
-        }
-        .vacant .leader-info {
-            padding: 1.5rem;
-            text-align: center;
-        }
-        .vacant .leader-position {
-            color: #d4af37;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-        .vacant .leader-name {
-            color: #e0e0e0;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-        .vacant .leader-bio {
-            color: #c0c0c0;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-        .vacant .leader-contact {
-            margin-top: 0;
-            padding-top: 0;
-            border-top: none;
-            color: #a0a0a0;
-            font-size: 0.9rem;
-            opacity: 0.8;
         }
         footer {
             background-color: #000000;
@@ -1781,11 +1729,9 @@
                             </div>
                         </div>
                         <!-- Vacant Captain Position -->
-                        <div class="vacant">
+                        <div class="leader-card vacant">
                             <div class="leader-img">
-                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                    <span style="font-size: 2rem; font-weight: bold; color: #d4af37; text-align: center; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);">VACANT</span>
-                                </div>
+                                <!-- The vacant image will be displayed via CSS background -->
                             </div>
                             <div class="leader-info">
                                 <div class="leader-position">CAPTAIN</div>
@@ -1801,21 +1747,19 @@
                             </div>
                         </div>
                         <!-- Vacant Lieutenant Position -->
-                        <div class="vacant">
+                        <div class="leader-card vacant">
                             <div class="leader-img">
-                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                                    <span style="font-size: 2rem; font-weight: bold; color: #d4af37; text-align: center; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);">VACANT</span>
-                                </div>
+                                <!-- The vacant image will be displayed via CSS background -->
                             </div>
                             <div class="leader-info">
                                 <div class="leader-position">LIEUTENANT</div>
                                 <div class="leader-name">POSITION VACANT</div>
                                 <div class="leader-bio">
-                                    The Lieutenant position is currently vacant as the department conducts a thorough search for the right candidate to lead our Field Operations. Qualified internal candidates are encouraged to apply through the Personnel Division.
+                                    The Lieutenant position is currently vacant. The department is seeking qualified candidates with strong leadership skills and extensive field experience to oversee shift operations and major incidents.
                                 </div>
                                 <div class="leader-contact">
                                     <strong>Status:</strong> Hiring Process Open<br>
-                                    <strong>Division:</strong> Field Operations<br>
+                                    <strong>Division:</strong> Operations<br>
                                     <strong>Contact:</strong> personnel@blainecountyso.gov
                                 </div>
                             </div>

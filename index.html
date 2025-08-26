@@ -493,6 +493,9 @@
         .leader-card:nth-child(5) {
             animation: cardReveal 0.8s ease-out 1.3s forwards;
         }
+        .leader-card:nth-child(6) {
+            animation: cardReveal 0.8s ease-out 1.5s forwards;
+        }
         @keyframes cardReveal {
             to {
                 opacity: 1;
@@ -574,7 +577,6 @@
             transition: all 0.5s ease;
             opacity: 0;
             transform: translateY(20px);
-            animation: cardReveal 0.8s ease-out 1.3s forwards;
         }
         .vacant .leader-img {
             background-color: #222;
@@ -583,6 +585,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            height: 300px;
         }
         .vacant .leader-img::before {
             content: '';
@@ -963,7 +966,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">CAT ALERT</span>
-                                <div class="news-date">OCT 16, 2025</div>
+                                <div class="news-date">OCT 16, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Sheriff Lei reports another mysterious disappearance of his prized 'cat meat special' from the evidence locker. This marks the 14th cat-based dish gone missing this month. 'Those LSPD officers have no respect for proper rural cuisine,' the Sheriff lamented while sharpening his cleaver. Surveillance footage shows only a blur of blue uniforms and the sound of someone saying 'Sorry, we just really like cats.'"
@@ -972,7 +975,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">LSPD SCANDAL</span>
-                                <div class="news-date">OCT 15, 2025</div>
+                                <div class="news-date">OCT 15, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Multiple LSPD officers hospitalized after consuming 'performance enhancing supplements' confiscated from a downtown dealer. Sources confirm the supplements were actually expired Blaine County cat stew, which Sheriff Lei claims 'has natural energizing properties... when prepared correctly.' The affected officers are reportedly experiencing 'uncontrollable urges to climb trees and chase laser pointers.'"
@@ -981,7 +984,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">COUNTY PRIDE</span>
-                                <div class="news-date">OCT 14, 2025</div>
+                                <div class="news-date">OCT 14, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Blaine County officially declares itself superior to all other counties after winning the annual 'Best Air Quality' award. 'Our air is pure because we don't have LSPD cruisers idling downtown all day burning taxpayer money,' stated Undersheriff Graves. The award comes with a $50 voucher to Sandy Shores Gas & Bait, which Sheriff Lei plans to spend on more cat traps."
@@ -990,7 +993,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">MISSING PERSONS</span>
-                                <div class="news-date">OCT 13, 2025</div>
+                                <div class="news-date">OCT 13, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Local man missing for 3 days found napping in a barn outside Paleto. 'I wasn't lost, I was just avoiding that new LSPD community outreach program,' the man explained. Sheriff Lei praised the discovery: 'This proves Blaine County residents have superior survival instincts. In Los Santos, they'd have been 'community engaged' to death by now.'"
@@ -999,7 +1002,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">PUBLIC SERVICE</span>
-                                <div class="news-date">OCT 12, 2025</div>
+                                <div class="news-date">OCT 12, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Blaine County announces new initiative: 'Adopt a Highway, Get a Free Cat.' Residents who volunteer for highway cleanup will receive one free cat (while supplies last). 'It's a win-win,' said Sheriff Lei. 'Cleaner roads and better ingredients for my stew.' LSPD has issued a formal protest, calling it 'cruelty to officers.'"
@@ -1009,17 +1012,17 @@
                     <!-- Original Announcements -->
                     <div class="announcement animated">
                         <div class="announcement-title">EMERGENCY ALERT: HIGH PRIORITY WARRANTS</div>
-                        <div class="announcement-date">October 15, 2025</div>
+                        <div class="announcement-date">October 15, 2023</div>
                         <p>Multiple high-risk warrants have been issued for individuals involved in recent armed robberies across Blaine County. All deputies should exercise extreme caution when encountering these subjects. Full suspect descriptions and vehicle information available in the Warrants section.</p>
                     </div>
                     <div class="announcement animated">
                         <div class="announcement-title">ANNUAL FIREARMS QUALIFICATION SCHEDULE RELEASED</div>
-                        <div class="announcement-date">October 10, 2025</div>
+                        <div class="announcement-date">October 10, 2023</div>
                         <p>The annual firearms qualification schedule has been released. All deputies must complete qualification by November 30th. Schedule your session through the Firearms Certification portal. Failure to qualify will result in temporary suspension of firearm privileges.</p>
                     </div>
                     <div class="announcement animated">
-                        <div class="announcement-title">NEW SOP ADDITIONS - OCTOBER 2025</div>
-                        <div class="announcement-date">October 5, 2025</div>
+                        <div class="announcement-title">NEW SOP ADDITIONS - OCTOBER 2023</div>
+                        <div class="announcement-date">October 5, 2023</div>
                         <p>Several updates have been made to our Standard Operating Procedures. Key changes include updated pursuit policies, new de-escalation techniques, and revised protocols for handling mental health crises. All personnel are required to review the updated SOP manual.</p>
                     </div>
                     <div class="logo-bottom">
@@ -1658,10 +1661,10 @@
                             <li><strong>Authorization Required:</strong> PIT maneuvers require prior approval from a Sergeant or higher-ranking officer.</li>
                             <li><strong>Eligible Suspects:</strong> Only for fleeing vehicles after committing a violent felony or DUI with injury risk.</li>
                             <li><strong>Environmental Conditions:</strong> Must be dry pavement, good visibility, and no adverse weather.</li>
-                            <li><strong>Speed Limit:</strong> Recommended maximum speed of 180 mph (higher speeds significantly increase risk).</li>
-                            <li><strong>Vehicle Type:</strong> Only standard passenger vehicles (not motorcycles).</li>
+                            <li><strong>Speed Limit:</strong> Recommended maximum speed of 35 mph (higher speeds significantly increase risk).</li>
+                            <li><strong>Vehicle Type:</strong> Only standard passenger vehicles (not motorcycles, large trucks, or hazardous materials carriers).</li>
                             <li><strong>Location Restrictions:</strong> Prohibited in residential areas, near schools, or in crowded urban centers.</li>
-                            <li><strong>Child Safety:</strong> Prohibited when people are visible in the streets.</li>
+                            <li><strong>Child Safety:</strong> Prohibited when children are visible in the suspect vehicle.</li>
                             <li><strong>Medical Considerations:</strong> Consider potential medical emergencies that may explain erratic driving.</li>
                         </ul>
                     </div>
@@ -1676,11 +1679,11 @@
                         <div class="announcement-date">Training Requirements</div>
                         <p>All officers must complete the following to be certified for PIT maneuvers:</p>
                         <ul class="sop-list">
-                            <li>10-min classroom instruction on policy and legal considerations</li>
-                            <li>3-hour practical training on the driving course</li>
+                            <li>8-hour classroom instruction on policy and legal considerations</li>
+                            <li>16-hour practical training on the driving course</li>
                             <li>Successful completion of 10 supervised PIT maneuvers</li>
-                            <li>verbal examination with 90% passing score</li>
-                            <li>Annual recertification with 1 hour of refresher training</li>
+                            <li>Written examination with 90% passing score</li>
+                            <li>Annual recertification with 4 hours of refresher training</li>
                         </ul>
                         <p>Certification is valid for one year from date of completion. Officers must document all PIT maneuvers in the after-action report.</p>
                     </div>
@@ -1779,7 +1782,11 @@
                         </div>
                         <!-- Vacant Captain Position -->
                         <div class="vacant">
-                            <div class="leader-img"></div>
+                            <div class="leader-img">
+                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <span style="font-size: 2rem; font-weight: bold; color: #d4af37; text-align: center; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);">VACANT</span>
+                                </div>
+                            </div>
                             <div class="leader-info">
                                 <div class="leader-position">CAPTAIN</div>
                                 <div class="leader-name">POSITION VACANT</div>
@@ -1789,6 +1796,26 @@
                                 <div class="leader-contact">
                                     <strong>Status:</strong> Hiring Process Open<br>
                                     <strong>Division:</strong> Patrol Division<br>
+                                    <strong>Contact:</strong> personnel@blainecountyso.gov
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Vacant Lieutenant Position -->
+                        <div class="vacant">
+                            <div class="leader-img">
+                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <span style="font-size: 2rem; font-weight: bold; color: #d4af37; text-align: center; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);">VACANT</span>
+                                </div>
+                            </div>
+                            <div class="leader-info">
+                                <div class="leader-position">LIEUTENANT</div>
+                                <div class="leader-name">POSITION VACANT</div>
+                                <div class="leader-bio">
+                                    The Lieutenant position is currently vacant as the department conducts a thorough search for the right candidate to lead our Field Operations. Qualified internal candidates are encouraged to apply through the Personnel Division.
+                                </div>
+                                <div class="leader-contact">
+                                    <strong>Status:</strong> Hiring Process Open<br>
+                                    <strong>Division:</strong> Field Operations<br>
                                     <strong>Contact:</strong> personnel@blainecountyso.gov
                                 </div>
                             </div>
@@ -1805,8 +1832,8 @@
                     <img src="https://i.postimg.cc/MZmLPCfM/389465297-Rexx13-Union-BCSOpatch-graphic-png-af4bb5fb677d23b8d66354cd6dc216eb-3991873715.png" alt="BCSO Logo">
                 </div>
                 <div>Blaine County Sheriff's Office</div>
-                <div>420 Enforcement Way, Sandy Shores, San Andreas 90210</div>
-                <div>© 2025 Blaine County Sheriff's Office. All Rights Reserved.</div>
+                <div>555 Enforcement Way, Sandy Shores, San Andreas 90210</div>
+                <div>© 2023 Blaine County Sheriff's Office. All Rights Reserved.</div>
                 <div>For Internal Use Only - Unauthorized Access Prohibited</div>
             </div>
         </div>
@@ -1815,7 +1842,6 @@
         // Get all navigation links and pages
         const navLinks = document.querySelectorAll('.nav-link');
         const pages = document.querySelectorAll('.page');
-        
         // Function to change page
         function showPage(pageId) {
             // Hide all pages
@@ -1851,7 +1877,6 @@
                 }
             }, 50);
         }
-        
         // Add click event listeners to nav links
         document.addEventListener('click', function(e) {
             // Check if clicked element or its parent has data-page attribute
@@ -1862,10 +1887,8 @@
                 showPage(pageId);
             }
         });
-        
         // Initialize with home page
         showPage('home');
-        
         // Add hover effect to logo
         const logo = document.querySelector('.logo');
         if (logo) {
@@ -1878,7 +1901,6 @@
                 logo.style.filter = 'brightness(1)';
             });
         }
-        
         // Add subtle hover effect to footer logo
         const footerLogo = document.querySelector('.footer-logo');
         if (footerLogo) {
@@ -1895,6 +1917,3 @@
 </body>
 </html>
 ```
-
-
-

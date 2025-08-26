@@ -490,6 +490,9 @@
         .leader-card:nth-child(4) {
             animation: cardReveal 0.8s ease-out 1.1s forwards;
         }
+        .leader-card:nth-child(5) {
+            animation: cardReveal 0.8s ease-out 1.3s forwards;
+        }
         @keyframes cardReveal {
             to {
                 opacity: 1;
@@ -564,20 +567,70 @@
             opacity: 1;
         }
         .vacant {
-            background-color: rgba(150, 0, 0, 0.3);
-            border: 2px dashed #d42f2f;
-            text-align: center;
-            padding: 2rem;
-            margin: 2rem 0;
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.5s ease;
             opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.5s forwards;
+            transform: translateY(20px);
+            animation: cardReveal 0.8s ease-out 1.3s forwards;
         }
-        .vacant h2 {
-            color: #d42f2f;
+        .vacant .leader-img {
+            background-color: #222;
+            border-bottom: 2px solid #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .vacant .leader-img::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(45deg, #333 0px, #333 10px, #222 10px, #222 20px);
+            opacity: 0.3;
+        }
+        .vacant .leader-img::after {
+            content: 'VACANT';
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            z-index: 1;
+        }
+        .vacant .leader-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .vacant .leader-position {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .vacant .leader-name {
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .vacant .leader-bio {
+            color: #c0c0c0;
+            line-height: 1.6;
+            font-size: 0.95rem;
             margin-bottom: 1rem;
         }
-        .vacant p {
-            color: #f0a0a0;
+        .vacant .leader-contact {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
         footer {
             background-color: #000000;
@@ -722,6 +775,7 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
         .pit-step:hover {
             transform: translateY(-5px);
@@ -732,20 +786,48 @@
             height: 200px;
             background-color: #222;
             overflow: hidden;
+            position: relative;
+        }
+        .pit-step-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
         }
         .pit-step-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .pit-step:hover .pit-step-img img {
+            transform: scale(1.05);
         }
         .pit-step-info {
             padding: 1.5rem;
+            position: relative;
+            z-index: 2;
         }
         .pit-step-number {
             color: #d4af37;
             font-weight: bold;
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .pit-step-number::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #d4af37;
+            display: inline-block;
         }
         .pit-step-title {
             color: #e0e0e0;
@@ -770,6 +852,8 @@
             font-size: 1.8rem;
             margin-bottom: 1rem;
             text-align: center;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
         }
         .pit-animation-img {
             max-width: 100%;
@@ -777,6 +861,60 @@
             border: 2px solid #333;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .pit-animation-img:hover {
+            transform: scale(1.02);
+        }
+        .pit-safety {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .pit-safety-title {
+            color: #d4af37;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 0.5rem;
+        }
+        .pit-safety-list {
+            margin-left: 1.8rem;
+            line-height: 1.8;
+        }
+        .pit-safety-list li {
+            margin-bottom: 0.8rem;
+        }
+        .pit-safety-list strong {
+            color: #d4af37;
+        }
+        .pit-video {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .pit-video-title {
+            color: #d4af37;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .pit-video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+        .pit-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
@@ -825,7 +963,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">CAT ALERT</span>
-                                <div class="news-date">OCT 16, 2025</div>
+                                <div class="news-date">OCT 16, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Sheriff Lei reports another mysterious disappearance of his prized 'cat meat special' from the evidence locker. This marks the 14th cat-based dish gone missing this month. 'Those LSPD officers have no respect for proper rural cuisine,' the Sheriff lamented while sharpening his cleaver. Surveillance footage shows only a blur of blue uniforms and the sound of someone saying 'Sorry, we just really like cats.'"
@@ -834,7 +972,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">LSPD SCANDAL</span>
-                                <div class="news-date">OCT 15, 2025</div>
+                                <div class="news-date">OCT 15, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Multiple LSPD officers hospitalized after consuming 'performance enhancing supplements' confiscated from a downtown dealer. Sources confirm the supplements were actually expired Blaine County cat stew, which Sheriff Lei claims 'has natural energizing properties... when prepared correctly.' The affected officers are reportedly experiencing 'uncontrollable urges to climb trees and chase laser pointers.'"
@@ -843,7 +981,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">COUNTY PRIDE</span>
-                                <div class="news-date">OCT 14, 2025</div>
+                                <div class="news-date">OCT 14, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Blaine County officially declares itself superior to all other counties after winning the annual 'Best Air Quality' award. 'Our air is pure because we don't have LSPD cruisers idling downtown all day burning taxpayer money,' stated Undersheriff Graves. The award comes with a $50 voucher to Sandy Shores Gas & Bait, which Sheriff Lei plans to spend on more cat traps."
@@ -852,7 +990,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">MISSING PERSONS</span>
-                                <div class="news-date">OCT 13, 2025</div>
+                                <div class="news-date">OCT 13, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Local man missing for 3 days found napping in a barn outside Paleto. 'I wasn't lost, I was just avoiding that new LSPD community outreach program,' the man explained. Sheriff Lei praised the discovery: 'This proves Blaine County residents have superior survival instincts. In Los Santos, they'd have been 'community engaged' to death by now.'"
@@ -861,7 +999,7 @@
                         <div class="news-item">
                             <div class="news-header">
                                 <span class="news-tag">PUBLIC SERVICE</span>
-                                <div class="news-date">OCT 12, 2025</div>
+                                <div class="news-date">OCT 12, 2023</div>
                             </div>
                             <div class="news-content">
                                 "Blaine County announces new initiative: 'Adopt a Highway, Get a Free Cat.' Residents who volunteer for highway cleanup will receive one free cat (while supplies last). 'It's a win-win,' said Sheriff Lei. 'Cleaner roads and better ingredients for my stew.' LSPD has issued a formal protest, calling it 'cruelty to officers.'"
@@ -871,17 +1009,17 @@
                     <!-- Original Announcements -->
                     <div class="announcement animated">
                         <div class="announcement-title">EMERGENCY ALERT: HIGH PRIORITY WARRANTS</div>
-                        <div class="announcement-date">October 15, 2025</div>
+                        <div class="announcement-date">October 15, 2023</div>
                         <p>Multiple high-risk warrants have been issued for individuals involved in recent armed robberies across Blaine County. All deputies should exercise extreme caution when encountering these subjects. Full suspect descriptions and vehicle information available in the Warrants section.</p>
                     </div>
                     <div class="announcement animated">
                         <div class="announcement-title">ANNUAL FIREARMS QUALIFICATION SCHEDULE RELEASED</div>
-                        <div class="announcement-date">October 10, 2025</div>
+                        <div class="announcement-date">October 10, 2023</div>
                         <p>The annual firearms qualification schedule has been released. All deputies must complete qualification by November 30th. Schedule your session through the Firearms Certification portal. Failure to qualify will result in temporary suspension of firearm privileges.</p>
                     </div>
                     <div class="announcement animated">
-                        <div class="announcement-title">NEW SOP ADDITIONS - AUGUST 2025</div>
-                        <div class="announcement-date">August 25, 2025</div>
+                        <div class="announcement-title">NEW SOP ADDITIONS - OCTOBER 2023</div>
+                        <div class="announcement-date">October 5, 2023</div>
                         <p>Several updates have been made to our Standard Operating Procedures. Key changes include updated pursuit policies, new de-escalation techniques, and revised protocols for handling mental health crises. All personnel are required to review the updated SOP manual.</p>
                     </div>
                     <div class="logo-bottom">
@@ -1431,10 +1569,17 @@
                                 <img src="https://i.postimg.cc/DzV9yDNF/pit-maneuvers-1.png" alt="PIT Maneuver Step 1">
                             </div>
                             <div class="pit-step-info">
-                                <div class="pit-step-number">STEP 1: POSITIONING</div>
-                                <div class="pit-step-title">Align Your Vehicle</div>
+                                <div class="pit-step-number">STEP 1</div>
+                                <div class="pit-step-title">POSITIONING</div>
                                 <div class="pit-step-description">
-                                    <p>Position your patrol vehicle parallel to the rear quarter of the fleeing vehicle, maintaining a distance of 2-3 feet. Your front bumper should be aligned with the suspect vehicle's rear door. Maintain a speed at least equal to the fleeing vehicle and ensure you have a clear escape route if the maneuver fails.</p>
+                                    <p>Position your patrol vehicle parallel to the rear quarter of the fleeing vehicle, maintaining a distance of 2-3 feet. Your front bumper should be aligned with the suspect vehicle's rear door.</p>
+                                    <p><strong>Key Points:</strong></p>
+                                    <ul class="sop-list">
+                                        <li>Maintain equal or greater speed to the fleeing vehicle</li>
+                                        <li>Ensure you have a clear escape route</li>
+                                        <li>Verify no pedestrians or civilian vehicles in immediate vicinity</li>
+                                        <li>Communicate your intention to supervisor</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -1444,10 +1589,18 @@
                                 <img src="https://i.postimg.cc/rspbPLDG/pit-maneuvers-2.png" alt="PIT Maneuver Step 2">
                             </div>
                             <div class="pit-step-info">
-                                <div class="pit-step-number">STEP 2: CONTACT</div>
-                                <div class="pit-step-title">Make Contact</div>
+                                <div class="pit-step-number">STEP 2</div>
+                                <div class="pit-step-title">CONTACT</div>
                                 <div class="pit-step-description">
-                                    <p>Once properly positioned, gently turn your steering wheel toward the fleeing vehicle to make contact with its rear quarter panel. The point of contact should be your front bumper to their rear quarter panel. Apply steady pressure while maintaining your lane position. Do not jerk the wheel or oversteer.</p>
+                                    <p>Once properly positioned, gently turn your steering wheel toward the fleeing vehicle to make contact with its rear quarter panel.</p>
+                                    <p><strong>Proper Contact Points:</strong></p>
+                                    <ul class="sop-list">
+                                        <li>Contact should be made with your front bumper to their rear quarter panel</li>
+                                        <li>Apply steady, controlled pressure</li>
+                                        <li>Do not jerk the wheel or oversteer</li>
+                                        <li>Maintain your lane position</li>
+                                    </ul>
+                                    <p><strong>Warning:</strong> Excessive force can cause loss of control of both vehicles.</p>
                                 </div>
                             </div>
                         </div>
@@ -1457,10 +1610,18 @@
                                 <img src="https://i.postimg.cc/L507d0Pc/pit-maneuvers-3.png" alt="PIT Maneuver Step 3">
                             </div>
                             <div class="pit-step-info">
-                                <div class="pit-step-number">STEP 3: TURN</div>
-                                <div class="pit-step-title">Initiate the Turn</div>
+                                <div class="pit-step-number">STEP 3</div>
+                                <div class="pit-step-title">TURN</div>
                                 <div class="pit-step-description">
-                                    <p>As contact is maintained, smoothly turn your steering wheel in the direction of the fleeing vehicle. This transfers momentum and induces oversteer in the suspect vehicle. Apply gentle acceleration to maintain contact pressure. The goal is to cause the suspect vehicle's rear tires to lose traction, not to damage either vehicle.</p>
+                                    <p>As contact is maintained, smoothly turn your steering wheel in the direction of the fleeing vehicle.</p>
+                                    <p><strong>Technique:</strong></p>
+                                    <ul class="sop-list">
+                                        <li>Transfer momentum to induce oversteer in the suspect vehicle</li>
+                                        <li>Apply gentle acceleration to maintain contact pressure</li>
+                                        <li>The goal is to cause the suspect vehicle's rear tires to lose traction</li>
+                                        <li>Do not attempt to "push" the vehicle for extended periods</li>
+                                    </ul>
+                                    <p>The maneuver should be completed within 1-2 seconds of contact.</p>
                                 </div>
                             </div>
                         </div>
@@ -1470,10 +1631,19 @@
                                 <img src="https://i.postimg.cc/wxWns3rw/pit-maneuvers-4.png" alt="PIT Maneuver Step 4">
                             </div>
                             <div class="pit-step-info">
-                                <div class="pit-step-number">STEP 4: RELEASE</div>
-                                <div class="pit-step-title">Disengage and Stop</div>
+                                <div class="pit-step-number">STEP 4</div>
+                                <div class="pit-step-title">RELEASE & SECURE</div>
                                 <div class="pit-step-description">
-                                    <p>Once the suspect vehicle begins to turn, immediately release contact and counter-steer to maintain control of your patrol vehicle. Brake smoothly and come to a controlled stop. Do not continue to push the suspect vehicle once it has begun to spin. Position your vehicle to block the suspect's path if necessary.</p>
+                                    <p>Once the suspect vehicle begins to turn, immediately release contact and counter-steer to maintain control of your patrol vehicle.</p>
+                                    <p><strong>Post-Maneuver Actions:</strong></p>
+                                    <ul class="sop-list">
+                                        <li>Brake smoothly and come to a controlled stop</li>
+                                        <li>Do not continue to push the suspect vehicle</li>
+                                        <li>Position your vehicle to block the suspect's path if necessary</li>
+                                        <li>Call for backup and medical assistance if needed</li>
+                                        <li>Secure the scene and approach with caution</li>
+                                    </ul>
+                                    <p>Remember: Your safety and the safety of the public are paramount.</p>
                                 </div>
                             </div>
                         </div>
@@ -1482,18 +1652,37 @@
                         <div class="pit-animation-title">PIT MANEUVER IN ACTION</div>
                         <img src="https://i.postimg.cc/zGTdpfdZ/ezgif-com-animated-gif-maker.gif" alt="PIT Maneuver Animation" class="pit-animation-img">
                     </div>
-                    <div class="announcement">
-                        <div class="announcement-title">PIT MANEUVER SAFETY PROTOCOLS</div>
-                        <div class="announcement-date">Effective Immediately</div>
-                        <p><strong>Conditions for PIT Maneuver Authorization:</strong></p>
-                        <ul class="sop-list">
-                            <li>Suspect is fleeing after committing a violent felony</li>
-                            <li>Weather and road conditions are favorable (dry pavement, good visibility)</li>
-                            <li>No pedestrians or civilian vehicles in the immediate vicinity</li>
-                            <li>Speed is below 35 mph (higher speeds significantly increase risk)</li>
-                            <li>Suspect vehicle is a standard passenger vehicle (not a motorcycle, large truck, or hazardous materials carrier)</li>
+                    <div class="pit-safety">
+                        <div class="pit-safety-title">PIT MANEUVER SAFETY PROTOCOLS</div>
+                        <ul class="pit-safety-list">
+                            <li><strong>Authorization Required:</strong> PIT maneuvers require prior approval from a Sergeant or higher-ranking officer.</li>
+                            <li><strong>Eligible Suspects:</strong> Only for fleeing vehicles after committing a violent felony or DUI with injury risk.</li>
+                            <li><strong>Environmental Conditions:</strong> Must be dry pavement, good visibility, and no adverse weather.</li>
+                            <li><strong>Speed Limit:</strong> Recommended maximum speed of 35 mph (higher speeds significantly increase risk).</li>
+                            <li><strong>Vehicle Type:</strong> Only standard passenger vehicles (not motorcycles, large trucks, or hazardous materials carriers).</li>
+                            <li><strong>Location Restrictions:</strong> Prohibited in residential areas, near schools, or in crowded urban centers.</li>
+                            <li><strong>Child Safety:</strong> Prohibited when children are visible in the suspect vehicle.</li>
+                            <li><strong>Medical Considerations:</strong> Consider potential medical emergencies that may explain erratic driving.</li>
                         </ul>
-                        <p><strong>Prohibited Situations:</strong> PIT maneuvers are strictly prohibited in residential areas, near schools, during inclement weather, or when children are visible in the suspect vehicle.</p>
+                    </div>
+                    <div class="pit-video">
+                        <div class="pit-video-title">OFFICIAL TRAINING VIDEO</div>
+                        <div class="pit-video-container">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="announcement">
+                        <div class="announcement-title">PIT MANEUVER CERTIFICATION</div>
+                        <div class="announcement-date">Training Requirements</div>
+                        <p>All officers must complete the following to be certified for PIT maneuvers:</p>
+                        <ul class="sop-list">
+                            <li>8-hour classroom instruction on policy and legal considerations</li>
+                            <li>16-hour practical training on the driving course</li>
+                            <li>Successful completion of 10 supervised PIT maneuvers</li>
+                            <li>Written examination with 90% passing score</li>
+                            <li>Annual recertification with 4 hours of refresher training</li>
+                        </ul>
+                        <p>Certification is valid for one year from date of completion. Officers must document all PIT maneuvers in the after-action report.</p>
                     </div>
                 </div>
             </div>
@@ -1588,11 +1777,22 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="vacant">
-                        <h2>CAPTAIN POSITION VACANT</h2>
-                        <p>The Captain position is currently vacant as the department conducts a thorough search for the right candidate to lead our Patrol Division.</p>
-                        <p>Qualified internal candidates are encouraged to apply through the Personnel Division.</p>
+                        <!-- Vacant Captain Position -->
+                        <div class="vacant">
+                            <div class="leader-img"></div>
+                            <div class="leader-info">
+                                <div class="leader-position">CAPTAIN</div>
+                                <div class="leader-name">POSITION VACANT</div>
+                                <div class="leader-bio">
+                                    The Captain position is currently vacant as the department conducts a thorough search for the right candidate to lead our Patrol Division. Qualified internal candidates are encouraged to apply through the Personnel Division.
+                                </div>
+                                <div class="leader-contact">
+                                    <strong>Status:</strong> Hiring Process Open<br>
+                                    <strong>Division:</strong> Patrol Division<br>
+                                    <strong>Contact:</strong> personnel@blainecountyso.gov
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1606,7 +1806,7 @@
                 </div>
                 <div>Blaine County Sheriff's Office</div>
                 <div>555 Enforcement Way, Sandy Shores, San Andreas 90210</div>
-                <div>© 2025 Blaine County Sheriff's Office. All Rights Reserved.</div>
+                <div>© 2023 Blaine County Sheriff's Office. All Rights Reserved.</div>
                 <div>For Internal Use Only - Unauthorized Access Prohibited</div>
             </div>
         </div>
@@ -1695,5 +1895,3 @@
 </body>
 </html>
 ```
-
-

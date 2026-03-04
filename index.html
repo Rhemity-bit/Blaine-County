@@ -157,6 +157,11 @@ header {
   object-fit: contain;
   filter: drop-shadow(0 0 8px var(--blue-glow));
   transition: filter 0.3s, transform 0.3s;
+  animation: badgePulse 3s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(37,99,255,0.4)); }
+  50%       { filter: drop-shadow(0 0 18px rgba(37,99,255,0.85)) drop-shadow(0 0 32px rgba(37,99,255,0.3)); }
 }
 .badge-wrap::before {
   content: '';
@@ -542,12 +547,20 @@ main { min-height: calc(100vh - 120px); }
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
 }
 .section-label::after {
   content: '';
   flex: 1;
   height: 1px;
   background: var(--border);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: drawLine 0.8s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes drawLine {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
 }
 
 .news-card {
@@ -1114,6 +1127,38 @@ main { min-height: calc(100vh - 120px); }
   box-shadow: 0 12px 40px rgba(37,99,255,0.15);
   transform: translateY(-3px);
 }
+/* Glitch overlay on hover */
+.leader-card:not(.vacant):hover .leader-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: transparent;
+  animation: glitchFlash 0.6s steps(1) forwards;
+  pointer-events: none;
+}
+@keyframes glitchFlash {
+  0%   { background: transparent; transform: translate(0,0); }
+  10%  { background: rgba(255,0,60,0.08); transform: translate(-3px, 0); clip-path: inset(20% 0 60% 0); }
+  20%  { background: transparent; transform: translate(0,0); clip-path: none; }
+  30%  { background: rgba(37,99,255,0.1); transform: translate(3px, 0); clip-path: inset(55% 0 10% 0); }
+  40%  { background: transparent; transform: translate(0,0); clip-path: none; }
+  50%  { background: rgba(255,0,60,0.06); transform: translate(-2px, 1px); clip-path: inset(70% 0 5% 0); }
+  60%  { background: transparent; transform: translate(0,0); clip-path: none; }
+  100% { background: transparent; transform: translate(0,0); }
+}
+/* Chromatic aberration on the image itself */
+.leader-card:not(.vacant):hover .leader-img-wrap img {
+  animation: glitchImg 0.6s steps(1) forwards;
+}
+@keyframes glitchImg {
+  0%   { filter: none; transform: scale(1.04) translate(0,0); }
+  10%  { filter: drop-shadow(-3px 0 0 rgba(255,0,60,0.6)) drop-shadow(3px 0 0 rgba(0,200,255,0.6)); transform: scale(1.04) translate(-2px,0); }
+  20%  { filter: none; transform: scale(1.04) translate(0,0); }
+  30%  { filter: drop-shadow(3px 0 0 rgba(255,0,60,0.5)) drop-shadow(-3px 0 0 rgba(0,200,255,0.5)); transform: scale(1.04) translate(2px,0); }
+  40%  { filter: none; transform: scale(1.04) translate(0,0); }
+  100% { filter: none; transform: scale(1.04) translate(0,0); }
+}
 .leader-img-wrap {
   width: 100%;
   height: 260px;
@@ -1383,27 +1428,118 @@ footer {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
   z-index: 99999;
   display: flex;
-  overflow: hidden;
+  overflow: visible;
+  opacity: 0.75;
 }
-.lb-segment {
+.lb-red,
+.lb-blue {
   flex: 1;
   height: 100%;
-  animation: lbFlash 1.1s infinite;
+  position: relative;
 }
-.lb-segment:nth-child(odd)  { animation-name: lbRed; }
-.lb-segment:nth-child(even) { animation-name: lbBlue; animation-delay: 0.55s; }
 
-@keyframes lbRed {
-  0%, 49%, 100% { background: rgba(255,40,40,0.0); box-shadow: none; }
-  50%, 98%      { background: rgba(255,40,40,1);   box-shadow: 0 0 12px 4px rgba(255,40,40,0.8); }
+.lb-red  { animation: lbRedCore  1.6s infinite; }
+.lb-blue { animation: lbBlueCore 1.6s infinite; }
+
+.lb-red::after,
+.lb-blue::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  pointer-events: none;
 }
-@keyframes lbBlue {
-  0%, 49%, 100% { background: rgba(37,99,255,0.0); box-shadow: none; }
-  50%, 98%      { background: rgba(37,99,255,1);   box-shadow: 0 0 12px 4px rgba(37,99,255,0.8); }
+.lb-red::after  { animation: lbRedGlow  1.6s infinite; }
+.lb-blue::after { animation: lbBlueGlow 1.6s infinite; }
+
+/* Ambient bleed — very faint, stays behind everything */
+.lb-red::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 50vw; height: 140px;
+  pointer-events: none;
+  z-index: -1;
+  animation: lbRedAmbient 1.6s infinite;
 }
+.lb-blue::before {
+  content: '';
+  position: fixed;
+  top: 0; right: 0;
+  width: 50vw; height: 140px;
+  pointer-events: none;
+  z-index: -1;
+  animation: lbBlueAmbient 1.6s infinite;
+}
+
+/* ── Red keyframes ── */
+@keyframes lbRedCore {
+  0%   { background: rgba(255,40,40,0.9); }
+  7%   { background: rgba(255,40,40,0.9); }
+  11%  { background: transparent; }
+  17%  { background: rgba(255,40,40,0.9); }
+  24%  { background: rgba(255,40,40,0.9); }
+  28%  { background: transparent; }
+  100% { background: transparent; }
+}
+@keyframes lbRedGlow {
+  0%   { box-shadow: 0 0 4px 2px rgba(255,40,40,0.55), 0 0 12px 5px rgba(255,40,40,0.2); }
+  7%   { box-shadow: 0 0 4px 2px rgba(255,40,40,0.55), 0 0 12px 5px rgba(255,40,40,0.2); }
+  11%  { box-shadow: none; }
+  17%  { box-shadow: 0 0 4px 2px rgba(255,40,40,0.55), 0 0 12px 5px rgba(255,40,40,0.2); }
+  24%  { box-shadow: 0 0 4px 2px rgba(255,40,40,0.55), 0 0 12px 5px rgba(255,40,40,0.2); }
+  30%  { box-shadow: none; }
+  100% { box-shadow: none; }
+}
+@keyframes lbRedAmbient {
+  0%   { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(255,40,40,0.07) 0%, transparent 70%); }
+  7%   { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(255,40,40,0.07) 0%, transparent 70%); }
+  11%  { background: none; }
+  17%  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(255,40,40,0.07) 0%, transparent 70%); }
+  24%  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(255,40,40,0.07) 0%, transparent 70%); }
+  30%  { background: none; }
+  100% { background: none; }
+}
+
+/* ── Blue keyframes ── */
+@keyframes lbBlueCore {
+  0%   { background: transparent; }
+  49%  { background: transparent; }
+  52%  { background: rgba(37,99,255,0.9); }
+  59%  { background: rgba(37,99,255,0.9); }
+  63%  { background: transparent; }
+  69%  { background: rgba(37,99,255,0.9); }
+  76%  { background: rgba(37,99,255,0.9); }
+  80%  { background: transparent; }
+  100% { background: transparent; }
+}
+@keyframes lbBlueGlow {
+  0%   { box-shadow: none; }
+  49%  { box-shadow: none; }
+  52%  { box-shadow: 0 0 4px 2px rgba(37,99,255,0.55), 0 0 12px 5px rgba(37,99,255,0.2); }
+  59%  { box-shadow: 0 0 4px 2px rgba(37,99,255,0.55), 0 0 12px 5px rgba(37,99,255,0.2); }
+  63%  { box-shadow: none; }
+  69%  { box-shadow: 0 0 4px 2px rgba(37,99,255,0.55), 0 0 12px 5px rgba(37,99,255,0.2); }
+  76%  { box-shadow: 0 0 4px 2px rgba(37,99,255,0.55), 0 0 12px 5px rgba(37,99,255,0.2); }
+  82%  { box-shadow: none; }
+  100% { box-shadow: none; }
+}
+@keyframes lbBlueAmbient {
+  0%   { background: none; }
+  49%  { background: none; }
+  52%  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(37,99,255,0.07) 0%, transparent 70%); }
+  59%  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(37,99,255,0.07) 0%, transparent 70%); }
+  63%  { background: none; }
+  69%  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(37,99,255,0.07) 0%, transparent 70%); }
+  76%  { background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(37,99,255,0.07) 0%, transparent 70%); }
+  82%  { background: none; }
+  100% { background: none; }
+}
+
+
 
 /* ============================
    BOOT / LOGIN SCREEN
@@ -1631,26 +1767,8 @@ footer {
 
 <!-- POLICE LIGHT BAR -->
 <div class="lightbar" id="lightbar">
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
-  <div class="lb-segment"></div>
+  <div class="lb-red"></div>
+  <div class="lb-blue"></div>
 </div>
 
 <!-- BOOT / LOGIN SCREEN -->
@@ -1694,7 +1812,7 @@ footer {
     <button class="nav-btn active" data-page="home"><span class="nav-icon">⌂</span> Home</button>
     <button class="nav-btn" data-page="sops"><span class="nav-icon">📋</span> Standard Operating Procedures</button>
     <button class="nav-btn" data-page="miranda"><span class="nav-icon">⚖</span> Miranda Rights</button>
-    <button class="nav-btn" data-page="firearms"><span class="nav-icon">🔫</span> Firearm Certification</button>
+    <button class="nav-btn" data-page="firearms"><span class="nav-icon">🔫</span> Firearm Licensing</button>
     <button class="nav-btn" data-page="pit"><span class="nav-icon">🚔</span> PIT Maneuver Training</button>
     <button class="nav-btn" data-page="leadership"><span class="nav-icon">👤</span> Leadership</button>
   </div>
@@ -1827,7 +1945,7 @@ footer {
     <div class="alert-card info">
       <div class="alert-title">ANNUAL FIREARMS QUALIFICATION SCHEDULE RELEASED</div>
       <div class="alert-date">October 10, 2026</div>
-      <div class="alert-text">The annual firearms qualification schedule has been released. All deputies must complete qualification by November 30th. Schedule your session through the Firearms Certification portal. Failure to qualify will result in temporary suspension of firearm privileges.</div>
+      <div class="alert-text">The annual firearms qualification schedule has been released. All deputies must complete qualification by November 30th. Schedule your session through the Firearm Licensing portal. Failure to qualify will result in temporary suspension of firearm privileges.</div>
     </div>
     <div class="alert-card update">
       <div class="alert-title">NEW SOP ADDITIONS — OCTOBER 2026</div>
@@ -1862,24 +1980,24 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§1</span>
+        <span class="sop-num">1</span>
         <span class="sop-entry-title">Definitions &amp; Abbreviations</span>
         <span class="sop-chevron">▾</span>
       </div>
       <div class="sop-entry-body">
-        <p><strong>SASP:</strong> San Andreas State Police — the principal law enforcement agency responsible for public safety and order within its jurisdiction, including the Highway Patrol division.</p>
-        <p><strong>HIGHWAY PATROL:</strong> The division within SASP tasked with enforcing traffic laws and ensuring road safety on all roads within the state. Handles patrols, traffic management, accident response, and enforcement operations.</p>
-        <p><strong>PURSUIT:</strong> The act of actively following a vehicle attempting to evade law enforcement, involving high-speed driving and tactical efforts to apprehend while minimising risk.</p>
-        <p><strong>MDT (Mobile Data Terminal):</strong> A handheld or in-vehicle computer system providing real-time access to vehicle records, driver information, incident reporting, and communication tools.</p>
-        <p><strong>PIT (Precision Immobilisation Technique):</strong> A maneuver used to safely stop a fleeing vehicle by causing it to spin to a controlled stop. Performed at speeds regulated by the state to minimise risk.</p>
-        <p><strong>ROLLING BLOCK:</strong> Tactical positioning used during vehicle pursuits to contain and control a fleeing vehicle by positioning patrol units to limit movement and facilitate apprehension.</p>
-        <p><strong>BOX:</strong> A tactical strategy using multiple patrol units positioned in a formation around the suspect vehicle, creating physical barriers on all sides to restrict escape routes and force a stop.</p>
+        <p><strong>SASP: San Andreas State Police</strong> The principal law enforcement agency responsible for public safety and order within its jurisdiction, including various divisions such as the Highway Patrol.</p>
+        <p><strong>HIGHWAY PATROL:</strong> The division within SASP that is tasked with enforcing traffic laws and ensuring road safety on all roads within the state. It handles patrols, traffic management, accident response, and enforcement operations.</p>
+        <p><strong>PURSUIT:</strong> The act of actively following a vehicle attempting to evade law enforcement. Pursuits involve high-speed driving and tactical efforts to apprehend the vehicle while minimizing risks.</p>
+        <p><strong>MDT (Mobile Data Terminal):</strong> A handheld or in-vehicle computer system providing officers with real-time access to vehicle records, driver information, incident reporting, and communication tools. It supports efficient operations and decision-making in the field.</p>
+        <p><strong>PIT (Precision Immobilization Technique):</strong> A maneuver used by officers to safely stop a fleeing vehicle by causing it to spin and come to a controlled stop. The PIT technique involves making contact with the rear of the target vehicle to disrupt its movement, performed at speeds regulated by the state to minimize risks.</p>
+        <p><strong>ROLLING BLOCK:</strong> Tactical Positioning used by law enforcement during vehicle pursuits to contain and control a fleeing vehicle. It involves positioning patrol units in a strategic arrangement to block the suspect vehicle, effectively limiting its movement and facilitating its apprehension while ensuring safety for officers and the public.</p>
+        <p><strong>ROLLING BOX:</strong> A tactical strategy used to block or impede a suspect vehicle's movement by positioning patrol units in a formation around the vehicle. The "Rolling Box" involves placing units in a way that creates physical barriers on all sides of the vehicle, effectively restricting its escape routes and forcing it to a stop. This maneuver is designed to safely apprehend suspects while minimizing the risk of high-speed collisions or accidents.</p>
       </div>
     </div>
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§2</span>
+        <span class="sop-num">2</span>
         <span class="sop-entry-title">Role Responsibilities</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -1894,7 +2012,7 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§3</span>
+        <span class="sop-num">3</span>
         <span class="sop-entry-title">Chain of Command</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -1905,13 +2023,13 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§4</span>
+        <span class="sop-num">4</span>
         <span class="sop-entry-title">Operational Procedures</span>
         <span class="sop-chevron">▾</span>
       </div>
       <div class="sop-entry-body">
         <p><strong>4.1 Daily Operations:</strong> Officers ensure vehicles are operational during each shift and that all equipment is functional. If damaged during shift, officers will return to station for repair or replacement.</p>
-        <p><strong>4.2 Shift Protocols:</strong> Officers must log in at the beginning of each shift, report any issues or incidents during the shift, and log out at the end.</p>
+        <p><strong>4.2 Shift Protocols:</strong> Officers must be logged in at the beginning of each shift, report any issues or incidents during the shift, and logged out at the end.</p>
         <p><strong>4.3 Routine Stops:</strong> Officers must follow proper procedures when conducting traffic stops, including approaching vehicles safely and documenting interactions via the MDT where necessary.</p>
         <p><strong>4.4 Traffic Enforcement:</strong> Officers are responsible for identifying and apprehending drivers hooning, speeding, or violating traffic laws following established protocols.</p>
         <p><strong>4.5 Accident Response:</strong> Upon arrival at an accident scene, officers must secure the area, provide aid to any injured parties, and coordinate with emergency services. Officers must collect evidence, interview witnesses, and complete an incident report. If necessary, coordinate with CID investigators.</p>
@@ -1920,7 +2038,7 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§5</span>
+        <span class="sop-num">5</span>
         <span class="sop-entry-title">Pursuit Procedures</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -1931,15 +2049,16 @@ footer {
         <p><strong>5.4 PIT Maneuvers:</strong> PIT is to be performed under 180 km/h and only when safe to do so. The default timer is 5 minutes from the beginning of pursuit. This timer can be reduced based on the actions of the suspect, including excessive civilian collisions or purposeful collisions with police vehicles.</p>
         <p><strong>5.5 Spike Strips:</strong> Can be used to deflate an evading vehicle's tyres. Must be used when safe to do so and must be collected before leaving the scene.</p>
         <p><strong>5.6 Rolling Block:</strong> Initiated during pursuit to slow or divert a fleeing vehicle. Performed by placing your vehicle in front of or beside the suspect vehicle. Gradual contact is permitted to coerce the suspect vehicle in the desired direction — this does not mean slamming brakes.</p>
-        <p><strong>5.7 Box:</strong> A more advanced version of the rolling block, initiated with the cooperation of multiple police vehicles. Performed by positioning units around the suspect vehicle to limit mobility. May be performed while mobile but is also a primary tool for ending pursuits while stationary.</p>
+        <p><strong>5.7 Rolling Box:</strong> A more advanced version of the rolling block, initiated with the cooperation of multiple police vehicles. Performed by positioning units around the suspect vehicle to limit mobility. May be performed while mobile but is also a primary tool for ending pursuits while stationary.</p>
         <p><strong>5.8 Foot Pursuits:</strong> Once a suspect has been boxed, they may attempt to flee on foot. Verbal warnings before taser deployment are preferred — this is to be implemented at the discretion of officers based on the suspect's behaviour during the pursuit.</p>
         <p><strong>5.9 Roadblocks:</strong> When establishing roadblocks, officers must ensure they are clearly visible to motorists with adequate warning. Proper placement and visibility are crucial for preventing accidents and ensuring drivers can safely stop.</p>
+        <p><strong>5.10 Shooting Tires:</strong> Shooting tires is only permitted once lethal force is authorized as the first measure of ending the pursuit.</p>
       </div>
     </div>
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§6</span>
+        <span class="sop-num">6</span>
         <span class="sop-entry-title">Emergency Response</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -1947,7 +2066,7 @@ footer {
         <p><strong>6.1 Major Incidents:</strong> Highway Officers must respond to incidents such as robberies, conflicts, drug crimes, or heists in coordination with other law enforcement.</p>
         <p><strong>6.2 Pursuit Leadership:</strong> Highway Patrol Officers engage as the primary unit in all pursuit responses.</p>
         <p><strong>6.3 Initiating Pursuits:</strong> Officers initiate pursuits based on reasonable suspicion of serious offences or when public safety is at risk.</p>
-        <p><strong>6.4 Activating POLAIR:</strong> When necessary, the highest-ranking officer (per department) has the authority to activate POLAIR (Police Air Support) to assist in tracking and managing pursuits.</p>
+        <p><strong>6.4 Activating POLAIR:</strong> When necessary, the highest-ranking officer (per division) has the authority to activate POLAIR (Police Air Support) to assist in tracking and managing pursuits.</p>
         <p><strong>6.5 Direction of Travel:</strong> Officers must quickly acquire and communicate the suspect's direction of travel to all responding units, ensuring all officers are informed and can strategise accordingly.</p>
         <p><strong>6.6 Coordinating Tactics:</strong> As the primary unit, officers should communicate clearly with other units, coordinating tactics to manage the pursuit effectively and ensure public safety.</p>
         <p><strong>6.7 Managing Resources:</strong> Officers are responsible for managing available resources during pursuits, including deploying support units and monitoring traffic conditions.</p>
@@ -1957,7 +2076,7 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§7</span>
+        <span class="sop-num">7</span>
         <span class="sop-entry-title">Communication Protocols</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -1970,7 +2089,7 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§8</span>
+        <span class="sop-num">8</span>
         <span class="sop-entry-title">Safety Protocols &amp; Use of Force</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -2016,7 +2135,7 @@ footer {
 
     <div class="sop-entry">
       <div class="sop-entry-header">
-        <span class="sop-num">§9</span>
+        <span class="sop-num">9</span>
         <span class="sop-entry-title">Training &amp; Qualifications</span>
         <span class="sop-chevron">▾</span>
       </div>
@@ -2110,7 +2229,7 @@ footer {
   <div class="page-hero">
     <div class="page-hero-left">
       <div class="hero-label">Licensing &amp; Certification</div>
-      <div class="hero-title">Firearm Certification</div>
+      <div class="hero-title">Firearm Licensing</div>
       <div class="hero-sub">State of San Andreas &nbsp;·&nbsp; SAHP Administered</div>
     </div>
     <div class="hero-badge">LICENSE FEE: $50,000</div>
@@ -2121,84 +2240,114 @@ footer {
     <p>By accepting this license, you voluntarily agree to all terms and conditions below.</p>
   </div>
 
-  <div class="license-fee">LICENSE FEE: $50,000 USD — NON-REFUNDABLE</div>
-
   <div class="stagger">
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 01</span>
-        <span class="rule-title">Legal Use Only</span>
+
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">01</span>
+        <span class="sop-entry-title">Legal Use Only</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">You agree to use any licensed firearm solely for lawful purposes, including self-defense, recreational shooting, or lawful hunting within designated areas. Any use in connection with criminal activity will result in immediate revocation, confiscation, and criminal prosecution under State and County law.</div>
+      <div class="sop-entry-body">
+        <p>You agree to use any licensed firearm solely for lawful purposes, including self-defense, recreational shooting, or lawful hunting within designated areas. Any use in connection with criminal activity will result in immediate revocation, confiscation, and criminal prosecution under State and County law.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 02</span>
-        <span class="rule-title">Concealed Carry Regulations</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">02</span>
+        <span class="sop-entry-title">Concealed Carry Regulations</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">You are authorized to carry a concealed firearm on your person within San Andreas where permitted by law. The firearm must remain holstered and concealed at all times, drawn only in cases of imminent self-defense, defense of others, or at approved shooting ranges.</div>
+      <div class="sop-entry-body">
+        <p>You are authorized to carry a concealed firearm on your person within San Andreas where permitted by law. The firearm must remain holstered and concealed at all times, drawn only in cases of imminent self-defense, defense of others, or at approved shooting ranges.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 03</span>
-        <span class="rule-title">Prohibition on Brandishing or Threatening</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">03</span>
+        <span class="sop-entry-title">Prohibition on Brandishing or Threatening</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">Brandishing, displaying, or threatening others with a firearm in public without justifiable cause is strictly prohibited. This includes aggressive gestures, pointing a weapon at individuals during disputes, or any action that reasonably causes fear. Violation constitutes a misdemeanor or felony offense, immediate license revocation, and potential arrest.</div>
+      <div class="sop-entry-body">
+        <p>Brandishing, displaying, or threatening others with a firearm in public without justifiable cause is strictly prohibited. This includes aggressive gestures, pointing a weapon at individuals during disputes, or any action that reasonably causes fear. Violation constitutes a misdemeanor or felony offense, immediate license revocation, and potential arrest.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 04</span>
-        <span class="rule-title">Duty to Disclose to Law Enforcement</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">04</span>
+        <span class="sop-entry-title">Duty to Disclose to Law Enforcement</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">If stopped, questioned, or detained by any law enforcement officer: immediately inform the officer you are legally carrying a firearm. Keep hands visible and follow all lawful commands. Failure to disclose may result in criminal charges including obstruction and unlawful carry.</div>
+      <div class="sop-entry-body">
+        <p>If stopped, questioned, or detained by any law enforcement officer: immediately inform the officer you are legally carrying a firearm. Keep hands visible and follow all lawful commands. Failure to disclose may result in criminal charges including obstruction and unlawful carry.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 05</span>
-        <span class="rule-title">Safe Storage &amp; Accountability</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">05</span>
+        <span class="sop-entry-title">Safe Storage &amp; Accountability</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">You are personally responsible for secure storage of all licensed firearms. Weapons must be stored in a locked container or with a trigger lock when not in use. If a firearm is lost, stolen, or compromised, report it to the SAHP within 24 hours or face fines, suspension, or revocation.</div>
+      <div class="sop-entry-body">
+        <p>You are personally responsible for secure storage of all licensed firearms. Weapons must be stored in a locked container or with a trigger lock when not in use. If a firearm is lost, stolen, or compromised, report it to the SAHP within 24 hours or face fines, suspension, or revocation.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 06</span>
-        <span class="rule-title">Mental &amp; Physical Fitness to Carry</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">06</span>
+        <span class="sop-entry-title">Mental &amp; Physical Fitness to Carry</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">Do not possess or carry a firearm while under the influence of alcohol, illegal drugs, or impairing prescription medication; or while suffering from a mental health crisis rendering you a danger to yourself or others. The SAHP reserves the right to suspend your license pending a fitness evaluation.</div>
+      <div class="sop-entry-body">
+        <p>Do not possess or carry a firearm while under the influence of alcohol, illegal drugs, or impairing prescription medication; or while suffering from a mental health crisis rendering you a danger to yourself or others. The SAHP reserves the right to suspend your license pending a fitness evaluation.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 07</span>
-        <span class="rule-title">No Unauthorized Transfer</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">07</span>
+        <span class="sop-entry-title">No Unauthorized Transfer</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">You may not sell, gift, loan, or transfer your licensed firearm to any individual who does not hold a valid firearms license issued by the State of San Andreas. Unauthorized transfer is a Class C Felony and will result in prosecution, revocation, and permanent disqualification from future licensing.</div>
+      <div class="sop-entry-body">
+        <p>You may not sell, gift, loan, or transfer your licensed firearm to any individual who does not hold a valid firearms license issued by the State of San Andreas. Unauthorized transfer is a Class C Felony and will result in prosecution, revocation, and permanent disqualification from future licensing.</p>
+      </div>
     </div>
 
-    <div class="firearm-rule">
-      <div class="firearm-rule-header">
-        <span class="rule-num">RULE 08</span>
-        <span class="rule-title">Subject to Review &amp; Revocation</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">08</span>
+        <span class="sop-entry-title">Subject to Review &amp; Revocation</span>
+        <span class="sop-chevron">▾</span>
       </div>
-      <div class="rule-body">Your firearms license is not permanent and remains subject to periodic review by the SAHP. The SAHP may suspend or revoke your license at any time if you violate state or county law, engage in dangerous or reckless behavior, or become ineligible due to criminal, medical, or psychological factors.</div>
+      <div class="sop-entry-body">
+        <p>Your firearms license is not permanent and remains subject to periodic review by the SAHP. The SAHP may suspend or revoke your license at any time if you violate state or county law, engage in dangerous or reckless behavior, or become ineligible due to criminal, medical, or psychological factors.</p>
+      </div>
     </div>
 
-    <div class="final-ack">
-      <div class="final-ack-title">✓ FINAL ACKNOWLEDGMENT</div>
-      <p>By providing your verbal agreement and submitting the non-refundable licensing fee of $50,000, you acknowledge that this license is a privilege, not a right. Misuse or violation of terms may result in:</p>
-      <div class="violations-list">
-        <span class="violation-tag">Fines</span>
-        <span class="violation-tag">Arrest</span>
-        <span class="violation-tag">Weapon Confiscation</span>
-        <span class="violation-tag">Permanent Revocation</span>
-        <span class="violation-tag">Criminal Prosecution</span>
+    <div class="sop-entry">
+      <div class="sop-entry-header">
+        <span class="sop-num">✓</span>
+        <span class="sop-entry-title">Final Acknowledgment</span>
+        <span class="sop-chevron">▾</span>
+      </div>
+      <div class="sop-entry-body">
+        <p>By providing your verbal agreement and submitting the non-refundable licensing fee of $50,000, you acknowledge that this license is a privilege, not a right. Misuse or violation of terms may result in:</p>
+        <div class="violations-list" style="margin-top:12px;">
+          <span class="violation-tag">Fines</span>
+          <span class="violation-tag">Arrest</span>
+          <span class="violation-tag">Weapon Confiscation</span>
+          <span class="violation-tag">Permanent Revocation</span>
+          <span class="violation-tag">Criminal Prosecution</span>
+        </div>
       </div>
     </div>
+
   </div>
 
 </div>
@@ -2316,7 +2465,7 @@ footer {
     <div class="safety-item"><strong>Speed Limit</strong>Recommended maximum 180 kph. Higher speeds significantly increase risk.</div>
     <div class="safety-item"><strong>Vehicle Type</strong>Standard passenger vehicles only. Not motorcycles, large trucks, or hazmat carriers.</div>
     <div class="safety-item"><strong>Location Restrictions</strong>Prohibited near schools, residential areas, or crowded urban centers.</div>
-    <div class="safety-item"><strong>Child Safety</strong>Exercise extreme caution when passengers are visible in the suspect vehicle.</div>
+    <div class="safety-item"><strong>Passenger Safety</strong>Exercise extreme caution when passengers are visible in the suspect vehicle.</div>
     <div class="safety-item"><strong>Medical Considerations</strong>Consider potential medical emergencies that may explain erratic driving.</div>
   </div>
 
@@ -2378,21 +2527,6 @@ footer {
 
     <div class="leader-card">
       <div class="leader-img-wrap">
-        <img src="https://i.postimg.cc/W3HB2Kg6/bing.png" alt="Inspector Bing Lei">
-      </div>
-      <div class="leader-info">
-        <div class="leader-rank"><span class="rank-dot"></span>INSPECTOR</div>
-        <div class="leader-name">Bing Lei</div>
-        <div class="leader-bio">Nobody's entirely sure how Inspector Lei ended up in San Andreas — least of all Immigration. Rumour has it he arrived in the country crammed inside a shipping container with forty-seven other people and a suspicious amount of dried goods. Since then he's worked his way into the SAHP through what colleagues describe as "sheer audacity and a complete disregard for paperwork." He answers directly to Commander Graves, which most people agree is punishment enough. His legal status remains, officially, under review.</div>
-        <div class="leader-meta">
-          <span>BADGE</span> #601 &nbsp;&nbsp; <span>TERM</span> CURRENT<br>
-          <span>EMAIL</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6211171207100b0c16070c06070c164c0e070b2211030a124c050d14">[email&#160;protected]</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="leader-card">
-      <div class="leader-img-wrap">
         <img src="https://i.postimg.cc/JzpPVXbj/phil.png" alt="Commander Phil Graves">
       </div>
       <div class="leader-info">
@@ -2401,7 +2535,22 @@ footer {
         <div class="leader-bio">Born in Kraków, Poland, Phil Graves made two things clear when he arrived in San Andreas: he was keeping the green hair, and he was getting behind the wheel. A terror on any road he drives down, Graves has racked up more near-misses, clipped kerbs, and destroyed pursuit vehicles than any other officer in department history — all while somehow never losing a suspect. Fellow troopers describe riding with him as "the single most frightening experience of my life." He considers that a compliment.</div>
         <div class="leader-meta">
           <span>BADGE</span> #600 &nbsp;&nbsp; <span>SERVICE</span> 22 YEARS<br>
-          <span>EMAIL</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="23404c4e4e424d4746510d4451425546506350424b530d444c55">[email&#160;protected]</a>
+          <span>EMAIL</span> commander.graves@sahp.gov
+        </div>
+      </div>
+    </div>
+
+    <div class="leader-card">
+      <div class="leader-img-wrap">
+        <img src="https://i.postimg.cc/W3HB2Kg6/bing.png" alt="Inspector Bing Lei">
+      </div>
+      <div class="leader-info">
+        <div class="leader-rank"><span class="rank-dot"></span>INSPECTOR</div>
+        <div class="leader-name">Bing Lei</div>
+        <div class="leader-bio">Nobody's entirely sure how Inspector Lei ended up in San Andreas — least of all Immigration. Rumour has it he arrived in the country crammed inside a shipping container with forty-seven other people and a suspicious amount of dried goods. Since then he's worked his way into the SAHP through what colleagues describe as "sheer audacity and a complete disregard for paperwork." He answers directly to Commander Graves, which most people agree is punishment enough. His legal status remains, officially, under review.</div>
+        <div class="leader-meta">
+          <span>BADGE</span> #601 &nbsp;&nbsp; <span>TERM</span> CURRENT<br>
+          <span>EMAIL</span> inspector.lei@sahp.gov
         </div>
       </div>
     </div>
@@ -2416,7 +2565,7 @@ footer {
         <div class="leader-bio">Dan Murphy is a Highway Patrol trooper through and through — put him on an open road and he's in his element. A lifelong car enthusiast who can name the engine spec of anything on four wheels, Murphy spent years wrenching in his garage before the job found him. That passion nearly cost him everything when a truck slipped off a jack and landed square on his hand during a routine lift — he's got the crushed fingers and the stubborn refusal to talk about it to prove it. These days he patrols the highways of San Andreas with the same calm intensity he brings to every rebuild: methodical, unhurried, and not easily rattled.</div>
         <div class="leader-meta">
           <span>BADGE</span> #602 &nbsp;&nbsp; <span>SERVICE</span> 23 YEARS<br>
-          <span>EMAIL</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="690d0c191c1d10470a01000c0f4700071a190c0a1d061b47041c1b190110291a080119470e061f">[email&#160;protected]</a>
+          <span>EMAIL</span> deputy.chief.inspector.murphy@sahp.gov
         </div>
       </div>
     </div>
@@ -2584,6 +2733,72 @@ document.querySelectorAll('.sop-entry-header').forEach(header => {
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+})();
+
+// ─── Radio Static Sound ───────────────────────────────────────
+(function() {
+  function playRadioStatic() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+      function staticBurst(startTime, duration, volume) {
+        const bufferSize = ctx.sampleRate * duration;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * volume;
+        }
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+
+        // Bandpass to make it sound like a radio
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.value = 1800;
+        bp.Q.value = 0.6;
+
+        // Highpass to cut rumble
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = 600;
+
+        // Envelope gain
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0, startTime);
+        gain.gain.linearRampToValueAtTime(1, startTime + 0.03);
+        gain.gain.setValueAtTime(1, startTime + duration - 0.04);
+        gain.gain.linearRampToValueAtTime(0, startTime + duration);
+
+        source.connect(hp);
+        hp.connect(bp);
+        bp.connect(gain);
+        gain.connect(ctx.destination);
+        source.start(startTime);
+      }
+
+      const now = ctx.currentTime;
+      // Opening squelch burst
+      staticBurst(now,        0.18, 0.15);
+      // Brief gap then short tail
+      staticBurst(now + 0.22, 0.08, 0.08);
+
+      // Close context after done
+      setTimeout(() => ctx.close(), 1200);
+    } catch(e) {}
+  }
+
+  // Trigger after boot screen fades — wait for first user gesture if needed
+  let fired = false;
+  function tryPlay() {
+    if (fired) return;
+    fired = true;
+    setTimeout(playRadioStatic, 7600);
+  }
+  // Most browsers allow AudioContext after any interaction
+  document.addEventListener('click',   tryPlay, { once: true });
+  document.addEventListener('keydown', tryPlay, { once: true });
+  // Also attempt automatically (works in some browsers)
+  setTimeout(tryPlay, 100);
 })();
 
 // ─── Init ─────────────────────────────────────────────────────
